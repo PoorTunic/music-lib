@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 /**
  * 
- * @author Daniel Clemente Aguirre, Daniela Hern·ndez Hern·ndez, Juan Alberto
+ * @author Daniel Clemente Aguirre, Daniela Hern√°ndez Hern√°ndez, Juan Alberto
  *         Osorio Osorio
  * @version 1.0
  */
@@ -25,7 +25,7 @@ public class DBConnection {
 	private static String URL = "jdbc:postgresql:/";
 	private static String DRIVER = "org.postgresql.Driver";
 	private static String USER = "postgres";
-	private static String PASSWORD = "Master1057$$";
+	private static String PASSWORD = "";
 
 	/**
 	 * Constructor that loads the DB Driver and authentication
