@@ -57,7 +57,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 	 * Create the frame.
 	 */
 	public ArtistMenu() {
-		setTitle("Artist");
+		setTitle("Artist Menu");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 600, 356);
 		contentPane = new JPanel();
