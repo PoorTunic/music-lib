@@ -62,9 +62,9 @@ public class Writer {
 		doc.add(new Paragraph(pdf.get(Content.TITLE)));
 		doc.add(new Paragraph(pdf.get(Content.BODY)));
 		doc.add(new Paragraph(pdf.get(Content.ARTIST)));
-		//Image img = Image.getInstance(pdf.get(Content.IMG));
-		//PdfImage stream = new PdfImage(img, "", null);
-		//stream.put(new PdfName("ID"), new PdfName("img"));
+		Image img = Image.getInstance(pdf.get(Content.IMG));
+		PdfImage stream = new PdfImage(img, "", null);
+		stream.put(new PdfName("ID"), new PdfName("img"));
 		
 		doc.close();
 	}

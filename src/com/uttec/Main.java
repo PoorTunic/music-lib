@@ -6,14 +6,14 @@ import java.util.Map;
 
 import com.uttec.enums.Content;
 import com.uttec.pdf.Writer;
-import com.uttec.views.Menu;
+import com.uttec.views.*;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
-		Menu m = new Menu();
-		m.setVisible(true);
+		Inicio n = new Inicio();
+		n.setVisible(true);
 		
 		
 		Writer.getInstance();
