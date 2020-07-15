@@ -13,24 +13,24 @@ public class Artist {
 
 	private UUID id;
 	private String name;
-	private String surnames;
 	private String artisticName;
+	private String bio;
 	private Date born;
 
-	public Artist(String name, String surnames, String artisticName, Date born) {
+	public Artist(String name, String artisticName, String bio, Date born) {
 		super();
 		this.name = name;
-		this.surnames = surnames;
 		this.artisticName = artisticName;
+		this.bio = bio;
 		this.born = born;
 	}
 
-	public Artist(UUID id, String name, String surnames, String artisticName, Date born) {
+	public Artist(UUID id, String name, String artisticName, String bio, Date born) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.surnames = surnames;
 		this.artisticName = artisticName;
+		this.bio = bio;
 		this.born = born;
 	}
 
@@ -50,20 +50,20 @@ public class Artist {
 		this.name = name;
 	}
 
-	public String getSurnames() {
-		return surnames;
-	}
-
-	public void setSurnames(String surnames) {
-		this.surnames = surnames;
-	}
-
 	public String getArtisticName() {
 		return artisticName;
 	}
 
 	public void setArtisticName(String artisticName) {
 		this.artisticName = artisticName;
+	}
+
+	public String getBio() {
+		return bio;
+	}
+
+	public void setBio(String bio) {
+		this.bio = bio;
 	}
 
 	public Date getBorn() {
@@ -76,8 +76,8 @@ public class Artist {
 
 	@Override
 	public String toString() {
-		return "Artist [name=" + name + ", surnames=" + surnames + ", artisticName=" + artisticName + ", born=" + born
-				+ "]";
+		return "Artist [id=" + id + ", name=" + name + ", artisticName=" + artisticName + ", bio=" + bio + ", born="
+				+ born + "]";
 	}
 
 }

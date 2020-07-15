@@ -16,12 +16,8 @@ import javax.swing.SpringLayout;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-public class Menu extends JFrame implements ActionListener {
-
-	/**
-	 * Serial Version UID
-	 */
-	private static final long serialVersionUID = 1L;
+@SuppressWarnings("serial")
+public class PdfMenu extends JFrame implements ActionListener {
 
 	JPanel root;
 	SpringLayout layout;
@@ -39,7 +35,7 @@ public class Menu extends JFrame implements ActionListener {
 	JRadioButton jrbByBSName;
 	ButtonGroup bgSearcher;
 
-	public Menu() {
+	public PdfMenu() {
 		super();
 
 		setBounds(100, 100, 860, 640);
@@ -56,7 +52,6 @@ public class Menu extends JFrame implements ActionListener {
 
 		jtfQuery = new JTextField();
 		jtfQuery.getDocument().addDocumentListener(new DocumentListener() {
-
 			@Override
 			public void removeUpdate(DocumentEvent e) {
 				queryUpdate(e);
@@ -106,7 +101,6 @@ public class Menu extends JFrame implements ActionListener {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
-		setVisible(true);
 	}
 
 	@Override
