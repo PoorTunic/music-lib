@@ -27,13 +27,13 @@ import com.uttec.views.dialogs.RegisterArtist;
 public class ArtistMenu extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JLabel lblNewLabel;
+	private JLabel lblTitle;
 	private JLabel lblAction;
 	private JLabel lblBio;
 	private JLabel lblDebut;
 	private JLabel lblArtistName;
 	private JButton btnAdd;
-	private JButton btnNewButton;
+	private JButton btnDelete;
 
 	private List<Artist> artistToSave = new ArrayList<Artist>();
 
@@ -58,8 +58,11 @@ public class ArtistMenu extends JFrame implements ActionListener {
 	 */
 	public ArtistMenu() {
 		setTitle("Artist Menu");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 600, 356);
+		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -94,21 +97,25 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		lblAction.setBounds(500, 54, 46, 14);
 		contentPane.add(lblAction);
 
-		lblNewLabel = new JLabel("The artists we have for you!");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		lblNewLabel.setForeground(new Color(255, 255, 255));
-		lblNewLabel.setBounds(163, 11, 265, 20);
-		contentPane.add(lblNewLabel);
+		lblTitle = new JLabel("The artists we have for you!");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		lblTitle.setForeground(new Color(255, 255, 255));
+		lblTitle.setBounds(163, 11, 265, 20);
+		contentPane.add(lblTitle);
 
-		btnNewButton = new JButton("Delete");
-		btnNewButton.setBackground(new Color(255, 0, 0));
-		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnNewButton.setForeground(new Color(255, 255, 255));
-		btnNewButton.setBounds(473, 82, 89, 23);
-		contentPane.add(btnNewButton);
+		btnDelete = new JButton("Delete");
+		btnDelete.setBackground(new Color(255, 0, 0));
+		btnDelete.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnDelete.setForeground(new Color(255, 255, 255));
+		btnDelete.setBounds(473, 82, 89, 23);
+		contentPane.add(btnDelete);
 
 		btnAdd = new JButton("Add Artist");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnAdd.setBackground(new Color(50, 205, 50));
 		btnAdd.setForeground(new Color(255, 255, 255));
 		btnAdd.setBounds(232, 277, 127, 29);

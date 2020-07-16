@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import com.uttec.entities.Artist;
 import com.uttec.views.dialogs.RegisterAlbum;
 import com.uttec.views.dialogs.RegisterSong;
 
@@ -22,7 +27,26 @@ import com.uttec.views.dialogs.RegisterSong;
 public class SongMenu extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField txtsearch;
+	private JTextField txtSearch;
+	private JRadioButton dbbtnArtist;
+	private JRadioButton rbtbnAlbum;
+	private JRadioButton rdbtnBand;
+	private JLabel lblTitle;
+	private JButton btnSearch;
+    private JLabel lblSong;
+    private JLabel lblAlbum;
+    private JLabel lblArtist;
+    private JButton btnNewAlbum;
+    private JButton btnNewSong;
+    
+    private String[] data;
+    
+    private ArrayList<String> SongToSave = new ArrayList<String>();
+    
+    public String[] run() {
+    	setVisible(true);
+    	return this.data;
+    }
 
 	/**
 	 * Launch the application.
@@ -45,93 +69,109 @@ public class SongMenu extends JFrame {
 	 */
 	public SongMenu() {
 		setTitle("Music List");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 		setBounds(100, 100, 606, 502);
+		setLocationRelativeTo(null);
+		
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		JRadioButton dbbtnartist = new JRadioButton("Artist Name");
-		dbbtnartist.setBackground(new Color(0, 0, 0));
-		dbbtnartist.setForeground(new Color(255, 255, 255));
-		dbbtnartist.setBounds(30, 49, 109, 23);
-		contentPane.add(dbbtnartist);
+		dbbtnArtist = new JRadioButton("Artist Name");
+		dbbtnArtist.setBackground(new Color(0, 0, 0));
+		dbbtnArtist.setForeground(new Color(255, 255, 255));
+		dbbtnArtist.setBounds(30, 49, 109, 23);
+		contentPane.add(dbbtnArtist);
 
-		JRadioButton rbtbnalbum = new JRadioButton("Album Name");
-		rbtbnalbum.setBackground(new Color(0, 0, 0));
-		rbtbnalbum.setForeground(new Color(255, 255, 255));
-		rbtbnalbum.setBounds(260, 49, 109, 23);
-		contentPane.add(rbtbnalbum);
+		rbtbnAlbum = new JRadioButton("Album Name");
+		rbtbnAlbum.setBackground(new Color(0, 0, 0));
+		rbtbnAlbum.setForeground(new Color(255, 255, 255));
+		rbtbnAlbum.setBounds(260, 49, 109, 23);
+		contentPane.add(rbtbnAlbum);
 
-		JRadioButton rdbtnband = new JRadioButton("Band Name");
-		rdbtnband.setBackground(new Color(0, 0, 0));
-		rdbtnband.setForeground(new Color(255, 255, 255));
-		rdbtnband.setBounds(448, 49, 109, 23);
-		contentPane.add(rdbtnband);
+		rdbtnBand = new JRadioButton("Band Name");
+		rdbtnBand.setBackground(new Color(0, 0, 0));
+		rdbtnBand.setForeground(new Color(255, 255, 255));
+		rdbtnBand.setBounds(448, 49, 109, 23);
+		contentPane.add(rdbtnBand);
 
-		JLabel lbltitle = new JLabel("Music List!");
-		lbltitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lbltitle.setFont(new Font("Segoe UI", Font.BOLD, 15));
-		lbltitle.setForeground(new Color(255, 255, 255));
-		lbltitle.setBounds(202, 11, 220, 14);
-		contentPane.add(lbltitle);
+		lblTitle = new JLabel("Music List!");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		lblTitle.setForeground(new Color(255, 255, 255));
+		lblTitle.setBounds(202, 11, 220, 14);
+		contentPane.add(lblTitle);
 
-		txtsearch = new JTextField();
-		txtsearch.setBounds(88, 79, 418, 20);
-		contentPane.add(txtsearch);
-		txtsearch.setColumns(10);
+		txtSearch = new JTextField();
+		txtSearch.setBounds(88, 79, 418, 20);
+		contentPane.add(txtSearch);
+		txtSearch.setColumns(10);
 
-		JButton btnsearch = new JButton("Search");
-		btnsearch.setBackground(new Color(50, 205, 50));
-		btnsearch.setForeground(new Color(255, 255, 255));
-		btnsearch.setBounds(260, 110, 109, 23);
-		contentPane.add(btnsearch);
+		btnSearch = new JButton("Search");
+		btnSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				data = new String[1];
+				data[0] = txtSearch.getText().trim().toUpperCase();
+				dispose();
+			}
+		});
+		
+		
+		btnSearch.setBackground(new Color(50, 205, 50));
+		btnSearch.setForeground(new Color(255, 255, 255));
+		btnSearch.setBounds(260, 110, 109, 23);
+		contentPane.add(btnSearch);
 
-		JLabel lblsong = new JLabel("Song Name");
-		lblsong.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		lblsong.setHorizontalAlignment(SwingConstants.CENTER);
-		lblsong.setForeground(new Color(255, 255, 255));
-		lblsong.setBounds(64, 164, 76, 23);
-		contentPane.add(lblsong);
+		lblSong = new JLabel("Song Name");
+		lblSong.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblSong.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSong.setForeground(new Color(255, 255, 255));
+		lblSong.setBounds(64, 164, 76, 23);
+		contentPane.add(lblSong);
 
-		JLabel lblalbum = new JLabel("Album Name");
-		lblalbum.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		lblalbum.setHorizontalAlignment(SwingConstants.CENTER);
-		lblalbum.setForeground(new Color(255, 255, 255));
-		lblalbum.setBounds(275, 164, 76, 23);
-		contentPane.add(lblalbum);
+		lblAlbum = new JLabel("Album Name");
+		lblAlbum.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblAlbum.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAlbum.setForeground(new Color(255, 255, 255));
+		lblAlbum.setBounds(275, 164, 76, 23);
+		contentPane.add(lblAlbum);
 
-		JLabel lblartist = new JLabel("Artist Name");
-		lblartist.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		lblartist.setHorizontalAlignment(SwingConstants.CENTER);
-		lblartist.setForeground(new Color(255, 255, 255));
-		lblartist.setBounds(448, 164, 86, 23);
-		contentPane.add(lblartist);
+		lblArtist = new JLabel("Artist Name");
+		lblArtist.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblArtist.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArtist.setForeground(new Color(255, 255, 255));
+		lblArtist.setBounds(448, 164, 86, 23);
+		contentPane.add(lblArtist);
+	
 
-		JButton btnnewalbum = new JButton("Register New Album");
-		btnnewalbum.addActionListener(new ActionListener() {
+		btnNewAlbum = new JButton("Register New Album");
+		
+		btnNewAlbum.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterAlbum ra = new RegisterAlbum();
 				ra.setVisible(true);
 			}
 		});
-		btnnewalbum.setForeground(Color.WHITE);
-		btnnewalbum.setBackground(new Color(50, 205, 50));
-		btnnewalbum.setBounds(88, 406, 158, 32);
-		contentPane.add(btnnewalbum);
+		
+		btnNewAlbum.setForeground(Color.WHITE);
+		btnNewAlbum.setBackground(new Color(50, 205, 50));
+		btnNewAlbum.setBounds(88, 406, 158, 32);
+		contentPane.add(btnNewAlbum);
 
-		JButton btnnewsong = new JButton("Register New Song");
-		btnnewsong.addActionListener(new ActionListener() {
+		btnNewSong = new JButton("Register New Song");
+		btnNewSong.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				RegisterSong rg = new RegisterSong();
 				rg.setVisible(true);
 			}
 		});
-		btnnewsong.setForeground(Color.WHITE);
-		btnnewsong.setBackground(new Color(50, 205, 50));
-		btnnewsong.setBounds(356, 406, 150, 32);
-		contentPane.add(btnnewsong);
+		btnNewSong.setForeground(Color.WHITE);
+		btnNewSong.setBackground(new Color(50, 205, 50));
+		btnNewSong.setBounds(356, 406, 150, 32);
+		contentPane.add(btnNewSong);
 	}
 }

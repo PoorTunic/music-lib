@@ -44,7 +44,11 @@ public class RegisterArtist extends JDialog {
 		super(parent, "Datos", true);
 		setTitle("Register Artist");
 		setBounds(100, 100, 402, 492);
+		
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		
 		setLocation(parent.getLocation().x + 80, parent.getLocation().y + 80);
+		setLocationRelativeTo(null);
 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 0));

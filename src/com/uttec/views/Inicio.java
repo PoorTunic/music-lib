@@ -1,4 +1,4 @@
-package com.uttec.views;
+ package com.uttec.views;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -90,8 +90,7 @@ public class Inicio extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.btnMenu)) {
-			System.out.println("menu");
-			PdfMenu menu = new PdfMenu();
+			GeneratePDF menu = new GeneratePDF();
 			menu.setVisible(true);
 		} else if (e.getSource().equals(this.btnArtist)) {
 			SongMenu viewSong = new SongMenu();
