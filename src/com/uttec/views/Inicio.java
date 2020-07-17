@@ -1,4 +1,4 @@
- package com.uttec.views;
+package com.uttec.views;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -62,7 +62,7 @@ public class Inicio extends JFrame implements ActionListener {
 		lblTitle.setBounds(162, 34, 248, 40);
 		contentPane.add(lblTitle);
 
-		btnMenu = new JButton("Menu");
+		btnMenu = new JButton("PDF");
 		btnMenu.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnMenu.setForeground(new Color(255, 255, 255));
 		btnMenu.setBackground(new Color(50, 205, 50));
@@ -90,14 +90,14 @@ public class Inicio extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.btnMenu)) {
-			GeneratePDF menu = new GeneratePDF();
-			menu.setVisible(true);
+//			GeneratePDF menu = new GeneratePDF();
+//			menu.setVisible(true);
 		} else if (e.getSource().equals(this.btnArtist)) {
-			SongMenu viewSong = new SongMenu();
-			viewSong.setVisible(true);
+			ArtistMenu viewArtist = new ArtistMenu();
+			viewArtist.setVisible(true);
 		} else if (e.getSource().equals(this.btnAlbum)) {
-			ArtistMenu viewArtis = new ArtistMenu();
-			viewArtis.setVisible(true);
+//			SongMenu viewSong = new SongMenu();
+//			viewSong.setVisible(true);
 		}
 	}
 }
