@@ -46,9 +46,9 @@ public class BandControl implements AlbumSearcher<Album> {
 	public List<Album> findByName(String name) {
 		List<Album> albums = new ArrayList<Album>();
 		try {
-			String sql = "SELECT album.ID_album, album.name, album.departure FROM album INNER JOIN band ON album.ID_band=band.ID_band WHERE band.name=?";
+			String sql = "SELECT album.ID_album, album.name, album.departure FROM album INNER JOIN band ON album.ID_band=band.ID_band WHERE band.name LIKE ?";
 			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
-			statement.setString(1, name);
+			statement.setString(1, '%' + name + '%');
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				Album album = new Album(rs.getInt(1), rs.getString(2), rs.getDate(3), "", null);
@@ -57,6 +57,6 @@ public class BandControl implements AlbumSearcher<Album> {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return albums;
 	}
 }

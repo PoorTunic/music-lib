@@ -38,7 +38,7 @@ public class ArtistControl implements AlbumSearcher<Album> {
 	public List<Album> findByName(String name) {
 		List<Album> albums = new ArrayList<Album>();
 		try {
-			String sql = "SELECT album.ID_album, album.name, album.departure FROM album INNER JOIN band ON album.ID_band=band.ID_band INNER JOIN artist ON band.ID_band=artist.ID_band WHERE artist.name=?";
+			String sql = "SELECT album.ID_album, album.name, album.departure FROM album INNER JOIN band ON album.ID_band=band.ID_band INNER JOIN artist ON band.ID_band=artist.ID_band WHERE artist.name LIKE ?";
 			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
 			statement.setString(1, name);
 			ResultSet rs = statement.executeQuery();

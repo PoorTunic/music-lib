@@ -176,12 +176,15 @@ public class PdfMenu extends JFrame implements ActionListener {
 			if (rdbtnBandName.isSelected()) {
 				SearcherContext ctx = new SearcherContext(new BandControl());
 				this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
+				this.getTableModel();
 			} else if (rdbtnArtistName.isSelected()) {
 				SearcherContext ctx = new SearcherContext(new ArtistControl());
 				this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
+				this.getTableModel();
 			} else if (rdbtnAlbumName.isSelected()) {
 				SearcherContext ctx = new SearcherContext(new AlbumControl());
 				this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
+				this.getTableModel();
 			}
 		}
 	}
