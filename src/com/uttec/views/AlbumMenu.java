@@ -28,6 +28,9 @@ import com.uttec.entities.Song;
 @SuppressWarnings("serial")
 public class AlbumMenu extends JFrame implements ActionListener {
 
+	/**
+	 * GUI components
+	 */
 	JPanel contentPane;
 	JLabel lblName;
 	JLabel lblDeparture;
@@ -42,11 +45,21 @@ public class AlbumMenu extends JFrame implements ActionListener {
 	JButton btnAddArtist;
 	JButton btnRemoveArtist;
 	JButton btnSave;
+	JButton btnRemove;
 
-	List<Song> albumSongs = new ArrayList<Song>();
+	/**
+	 * Represents table data
+	 */
+	private List<Song> albumSongs = new ArrayList<Song>();
 
+	/**
+	 * Represents the headers of the table
+	 */
 	private String[] jtHeaders = new String[] { "POS.", "SONG NAME", "RELEASE DATE", "COMMENTS" };
 
+	/**
+	 * Initializes view
+	 */
 	public AlbumMenu() {
 		setTitle("Album Register");
 		setResizable(false);
@@ -55,16 +68,16 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
 
 		lblName = new JLabel("Name:");
-		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 1;
 		contentPane.add(lblName, constraints);
 
-		lblDeparture = new JLabel("Departure:");
+		lblDeparture = new JLabel("Release (YYYY-MM-DD):");
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
@@ -115,7 +128,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 
 		btnSave = new JButton("Save");
 		constraints.gridx = 0;
-		constraints.gridy = 6;
+		constraints.gridy = 7;
 		constraints.gridwidth = 2;
 		constraints.gridheight = 1;
 		constraints.weightx = 1.0;
@@ -123,9 +136,19 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		btnSave.addActionListener(this);
 		contentPane.add(btnSave, constraints);
 
-		jtArtist = new JTable();
+		btnRemove = new JButton("Remove");
 		constraints.gridx = 0;
 		constraints.gridy = 4;
+		constraints.gridwidth = 2;
+		constraints.gridheight = 1;
+		constraints.weightx = 1.0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		btnRemove.addActionListener(this);
+		contentPane.add(btnRemove, constraints);
+
+		jtArtist = new JTable();
+		constraints.gridx = 0;
+		constraints.gridy = 5;
 		constraints.gridwidth = 2;
 		constraints.gridheight = 2;
 		this.getTableModel();
@@ -134,6 +157,11 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		pack();
 	}
 
+	/**
+	 * Captures Action Performance events
+	 * 
+	 * @see ActionListener#actionPerformed(ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.btnAddArtist)) {
@@ -145,9 +173,29 @@ public class AlbumMenu extends JFrame implements ActionListener {
 			}
 		} else if (e.getSource().equals(this.btnSave)) {
 			this.saveData();
+		} else if (e.getSource().equals(this.btnRemove)) {
+			if (this.albumSongs.size() == 0) {
+				JOptionPane.showMessageDialog(this, "Add elements first", "Warning", JOptionPane.WARNING_MESSAGE);
+			} else {
+				String index = JOptionPane.showInputDialog(this, "Type the position to remove:", "Remove item",
+						JOptionPane.INFORMATION_MESSAGE);
+				if (index != null || index != "") {
+					try {
+						this.albumSongs.remove(Integer.parseInt(index));
+						this.getTableModel();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
 		}
 	}
 
+	/**
+	 * Validates JTextFields on the GUI
+	 * 
+	 * @return boolean
+	 */
 	private boolean emptyFields() {
 		if (this.txtName.getText().isEmpty() || this.txtRelease.getText().isEmpty()
 				|| this.txtComments.getText().isEmpty() || this.txtRelease.getText().isEmpty()) {
@@ -157,8 +205,11 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Adds JTextFields content to a new Class and it adds that Class into general
+	 * list
+	 */
 	private void addArtist() {
-
 		if (checkDate(this.txtRelease.getText().trim())) {
 			try {
 				this.albumSongs.add(new Song(this.txtName.getText().trim().toUpperCase(),
@@ -175,6 +226,12 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Validates a String if it is valid
+	 * 
+	 * @param strDate to Check
+	 * @return boolean
+	 */
 	private boolean checkDate(String strDate) {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -186,6 +243,9 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Clears content of the JTextFields
+	 */
 	private void clearForm() {
 		this.txtName.setText(null);
 		this.txtRelease.setText(null);
@@ -193,6 +253,10 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		this.txtRelease.setText(null);
 	}
 
+	/**
+	 * Loads the initial data (empty) or updates the content according to List
+	 * elements
+	 */
 	private void getTableModel() {
 		String[][] data = new String[this.albumSongs.size()][this.jtHeaders.length];
 		if (this.albumSongs.size() == 0) {
@@ -212,6 +276,10 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		this.jtArtist.setModel(new DefaultTableModel(data, this.jtHeaders));
 	}
 
+	/**
+	 * Saves the content of the List of artists stored in the JTable. Depending the
+	 * size of the list, it select the way to create the Band
+	 */
 	private void saveData() {
 		if (this.albumSongs.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Add some artists to save", "Error", JOptionPane.ERROR_MESSAGE);

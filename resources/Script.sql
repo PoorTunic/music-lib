@@ -24,7 +24,6 @@ CREATE TABLE artist(
     ID_band INTEGER,
     nickname VARCHAR(30),
     name VARCHAR(30),
-    last_name VARCHAR(30),
     debut DATE,
     bio VARCHAR(500),
     FOREIGN KEY (ID_band) REFERENCES band(ID_band)
@@ -43,12 +42,12 @@ CREATE TABLE album(
     FOREIGN KEY (ID_song) REFERENCES song(ID_song)
 );
 
-CREATE OR REPLACE FUNCTION persistGenre(vIDGenre INTEGER, vName VARCHAR(30)) RETURNS VOID AS $TER$
+CREATE OR REPLACE FUNCTION persistGenre(vIDGenre INTEGER, vName VARCHAR(30)) RETURNS TABLE(ID_genre INTEGER) AS $TER$
 BEGIN
-    IF vIDGenre IS NULL THEN
-        INSERT INTO genre VALUES(DEFAULT, vName);
+    IF vIDGenre > 0 THEN
+        INSERT INTO genre VALUES(DEFAULT, vName) RETURNING genre.ID_genre;
     ELSE 
-        UPDATE genre SET name=vName WHERE genre.ID_genre=vIDGenre;
+        UPDATE genre SET name=vName WHERE genre.ID_genre=vIDGenre RETURNING genre.ID_genre;
     END IF;
 END;
 $TER$ LANGUAGE PLPGSQL;
@@ -60,13 +59,10 @@ END;
 $TER$ LANGUAGE PLPGSQL;
 
 
-CREATE OR REPLACE FUNCTION persistBand(vIDBand INTEGER, vName VARCHAR(30)) RETURNS VOID AS $TER$
+CREATE OR REPLACE FUNCTION persistBand(vName VARCHAR(30)) RETURNS TABLE(ID_Band INT) AS $TER$
 BEGIN
-    IF vIDBand IS NULL THEN
-        INSERT INTO band VALUES(DEFAULT, vName);
-    ELSE
-        UPDATE band SET name=vName WHERE band.ID_band=vIDBand;
-    END IF;
+    INSERT INTO band VALUES(DEFAULT, vName);    
+    RETURN QUERY SELECT band.ID_band FROM band WHERE band.name=vName; 
 END;
 $TER$ LANGUAGE PLPGSQL;
 
@@ -153,11 +149,11 @@ INSERT INTO genre VALUES(DEFAULT, 'BLUES');
 INSERT INTO genre VALUES(DEFAULT, 'JAZZ');
 
 INSERT INTO band VALUES(DEFAULT, 'METALLICA');
-INSERT INTO artist VALUES(DEFAULT, 1, '', 'LARS', 'ULRICH', '1981-01-01', 'Lars Ulrich (Gentofte, 26 de diciembre de 1963) es un músico danés conocido principalmente por ser el baterista, compositor, fundador y líder (junto a James Hetfield) de la banda de Thrash metal estadounidense Metallica.');
-INSERT INTO artist VALUES(DEFAULT, 1, '', 'JAMES ALAN', 'HETFIELD', '1978-01-01', 'James Alan Hetfield (Downey, California; 3 de agosto de 1963) es un músico estadounidense conocido por ser el vocalista, guitarrista rítmico y principal compositor de la banda de thrash metal Metallica, además de ser cofundador de la misma junto con Lars Ulrich.');
+INSERT INTO artist VALUES(DEFAULT, 1, '', 'LARS ULRICH', '1981-01-01', 'Lars Ulrich (Gentofte, 26 de diciembre de 1963) es un músico danés conocido principalmente por ser el baterista, compositor, fundador y líder (junto a James Hetfield) de la banda de Thrash metal estadounidense Metallica.');
+INSERT INTO artist VALUES(DEFAULT, 1, '', 'JAMES ALAN HETFIELD', '1978-01-01', 'James Alan Hetfield (Downey, California; 3 de agosto de 1963) es un músico estadounidense conocido por ser el vocalista, guitarrista rítmico y principal compositor de la banda de thrash metal Metallica, además de ser cofundador de la misma junto con Lars Ulrich.');
 
 INSERT INTO band VALUES(DEFAULT, 'LUIS MIGUEL');
-INSERT INTO artist VALUES(DEFAULT, 2, 'LUIS', 'MIGUEL', 'SOL DE MEXICO', '1980-01-01', 'Luis Miguel Gallego Basteri (San Juan, Puerto Rico; 19 de abril de 1970),​ apodado a veces como el Sol de México,​ es un cantante y productor musical mexicano​ nacido en Puerto Rico.');
+INSERT INTO artist VALUES(DEFAULT, 2, 'LUIS MIGUEL', 'SOL DE MEXICO', '1980-01-01', 'Luis Miguel Gallego Basteri (San Juan, Puerto Rico; 19 de abril de 1970),​ apodado a veces como el Sol de México,​ es un cantante y productor musical mexicano​ nacido en Puerto Rico.');
 
 INSERT INTO song VALUES(DEFAULT, 'NOTHING ELSE MATTERS', '2000-01-01', 'THIS IS A SUICIDAL SONG', 'ELEKTRA');
 INSERT INTO song VALUES(DEFAULT, 'BATTERY', '2000-01-01', 'THIS IS A SUICIDAL SONG', 'ELEKTRA');

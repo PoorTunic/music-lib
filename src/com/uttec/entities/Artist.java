@@ -1,7 +1,6 @@
 package com.uttec.entities;
 
 import java.util.Date;
-import java.util.UUID;
 
 /**
  * 
@@ -11,11 +10,20 @@ import java.util.UUID;
  */
 public class Artist {
 
-	private UUID id;
+	private Integer ID;
 	private String name;
 	private String artisticName;
 	private String bio;
 	private Date born;
+
+	public Artist(Integer iD, String name, String artisticName, String bio, Date born) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.artisticName = artisticName;
+		this.bio = bio;
+		this.born = born;
+	}
 
 	public Artist(String name, String artisticName, String bio, Date born) {
 		super();
@@ -25,21 +33,12 @@ public class Artist {
 		this.born = born;
 	}
 
-	public Artist(UUID id, String name, String artisticName, String bio, Date born) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.artisticName = artisticName;
-		this.bio = bio;
-		this.born = born;
+	public Integer getID() {
+		return ID;
 	}
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
+	public void setID(Integer iD) {
+		ID = iD;
 	}
 
 	public String getName() {
@@ -72,12 +71,6 @@ public class Artist {
 
 	public void setBorn(Date born) {
 		this.born = born;
-	}
-
-	@Override
-	public String toString() {
-		return "Artist [id=" + id + ", name=" + name + ", artisticName=" + artisticName + ", bio=" + bio + ", born="
-				+ born + "]";
 	}
 
 }

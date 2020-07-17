@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,9 +25,19 @@ import com.uttec.controllers.ArtistControl;
 import com.uttec.entities.Artist;
 import com.uttec.entities.Band;
 
+/**
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ * @version 1.0
+ *
+ */
 @SuppressWarnings("serial")
 public class ArtistMenu extends JFrame implements ActionListener {
 
+	/**
+	 * Represents GUI components
+	 */
 	JPanel contentPane;
 	JLabel lblName;
 	JLabel lblArtisticName;
@@ -45,11 +54,21 @@ public class ArtistMenu extends JFrame implements ActionListener {
 	JButton btnAddArtist;
 	JButton btnRemoveArtist;
 	JButton btnSave;
+	JButton btnRemove;
 
-	List<Artist> artistsToSave = new ArrayList<Artist>();
+	/**
+	 * Represents table data
+	 */
+	private List<Artist> artistsToSave = new ArrayList<Artist>();
 
+	/**
+	 * Represents the headers of the table
+	 */
 	private String[] jtHeaders = new String[] { "POS.", "NAME", "ARTISTIC NAME", "BORN AT" };
 
+	/**
+	 * Initializes view
+	 */
 	public ArtistMenu() {
 		setTitle("Artist Register");
 		setResizable(false);
@@ -132,9 +151,17 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		btnAddArtist.addActionListener(this);
 		contentPane.add(btnAddArtist, constraints);
 
+		btnRemove = new JButton("Remove");
+		constraints.gridx = 0;
+		constraints.gridy = 5;
+		constraints.gridwidth = 2;
+		constraints.gridheight = 1;
+		btnRemove.addActionListener(this);
+		contentPane.add(btnRemove);
+
 		btnSave = new JButton("Save");
 		constraints.gridx = 0;
-		constraints.gridy = 7;
+		constraints.gridy = 8;
 		constraints.gridwidth = 2;
 		constraints.gridheight = 1;
 		constraints.weightx = 1.0;
@@ -144,7 +171,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 
 		jtArtist = new JTable();
 		constraints.gridx = 0;
-		constraints.gridy = 5;
+		constraints.gridy = 6;
 		constraints.gridwidth = 2;
 		constraints.gridheight = 2;
 		this.getTableModel();
@@ -153,6 +180,11 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		pack();
 	}
 
+	/**
+	 * Captures Action Performance events
+	 * 
+	 * @see ActionListener#actionPerformed(ActionEvent)
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.btnAddArtist)) {
@@ -164,9 +196,29 @@ public class ArtistMenu extends JFrame implements ActionListener {
 			}
 		} else if (e.getSource().equals(this.btnSave)) {
 			this.saveData();
+		} else if (e.getSource().equals(this.btnRemove)) {
+			if (this.artistsToSave.size() == 0) {
+				JOptionPane.showMessageDialog(this, "Add elements first", "Warning", JOptionPane.WARNING_MESSAGE);
+			} else {
+				String index = JOptionPane.showInputDialog(this, "Type the position to remove:", "Remove item",
+						JOptionPane.INFORMATION_MESSAGE);
+				if (index != null || index != "") {
+					try {
+						this.artistsToSave.remove(Integer.parseInt(index));
+						this.getTableModel();
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			}
 		}
 	}
 
+	/**
+	 * Validates JTextFields on the GUI
+	 * 
+	 * @return boolean
+	 */
 	private boolean emptyFields() {
 		if (this.txtName.getText().isEmpty() || this.txtArtisticName.getText().isEmpty()
 				|| this.txtBio.getText().isEmpty() || this.txtBorn.getText().isEmpty()) {
@@ -176,11 +228,14 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Adds JTextFields content to a new Class and it adds that Class into general
+	 * list
+	 */
 	private void addArtist() {
-
 		if (checkDate(this.txtBorn.getText().trim())) {
 			try {
-				this.artistsToSave.add(new Artist(UUID.randomUUID(), this.txtName.getText().trim().toUpperCase(),
+				this.artistsToSave.add(new Artist(this.txtName.getText().trim().toUpperCase(),
 						this.txtArtisticName.getText().trim().toUpperCase(), this.txtBio.getText().trim().toUpperCase(),
 						new SimpleDateFormat("yyyy-MM-dd").parse(this.txtBorn.getText().trim())));
 				this.clearForm();
@@ -194,6 +249,12 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Validates a String if it is valid
+	 * 
+	 * @param strDate to Check
+	 * @return boolean
+	 */
 	private boolean checkDate(String strDate) {
 		try {
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -205,6 +266,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		}
 	}
 
+	/**
+	 * Clears content of the JTextFields
+	 */
 	private void clearForm() {
 		this.txtName.setText(null);
 		this.txtArtisticName.setText(null);
@@ -212,6 +276,10 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		this.txtBorn.setText(null);
 	}
 
+	/**
+	 * Loads the initial data (empty) or updates the content according to List
+	 * elements
+	 */
 	private void getTableModel() {
 		String[][] data = new String[this.artistsToSave.size()][this.jtHeaders.length];
 		if (this.artistsToSave.size() == 0) {
@@ -231,11 +299,20 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		this.jtArtist.setModel(new DefaultTableModel(data, this.jtHeaders));
 	}
 
+	/**
+	 * Saves the content of the List of artists stored in the JTable. Depending the
+	 * size of the list, it select the way to create the Band
+	 */
 	private void saveData() {
 		if (this.artistsToSave.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Add some artists to save", "Error", JOptionPane.ERROR_MESSAGE);
 		} else if (this.artistsToSave.size() == 1) {
-			ArtistControl.save(artistsToSave);
+			if (ArtistControl.save(artistsToSave)) {
+				this.artistsToSave = new ArrayList<Artist>();
+				this.getTableModel();
+			} else {
+				JOptionPane.showMessageDialog(this, "Unexpected error, try later", "Error", JOptionPane.ERROR_MESSAGE);
+			}
 		} else {
 			boolean givenName = false;
 			while (!givenName) {
@@ -243,14 +320,19 @@ public class ArtistMenu extends JFrame implements ActionListener {
 						JOptionPane.INFORMATION_MESSAGE);
 				if (name != null && !name.isEmpty()) {
 					givenName = true;
-					Band newBand = new Band(name, artistsToSave);
-					ArtistControl.save(newBand);
+					Band newBand = new Band(name.toUpperCase(), artistsToSave);
+					if (ArtistControl.save(newBand)) {
+						this.artistsToSave = new ArrayList<Artist>();
+						this.getTableModel();
+					} else {
+						JOptionPane.showMessageDialog(this, "Unexpected error, try later", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					}
 				} else {
 					JOptionPane.showMessageDialog(this, "You need to give a band name", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			}
-			;
 		}
 	}
 

@@ -1,13 +1,19 @@
 package com.uttec.entities;
 
 import java.util.List;
-import java.util.UUID;
 
 public class Band {
 
-	private UUID id;
+	private Integer ID;
 	private String name;
 	private List<Artist> artists;
+
+	public Band(Integer iD, String name, List<Artist> artists) {
+		super();
+		ID = iD;
+		this.name = name;
+		this.artists = artists;
+	}
 
 	public Band(String name, List<Artist> artists) {
 		super();
@@ -15,19 +21,12 @@ public class Band {
 		this.artists = artists;
 	}
 
-	public Band(UUID id, String name, List<Artist> artists) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.artists = artists;
+	public Integer getID() {
+		return ID;
 	}
 
-	public UUID getId() {
-		return id;
-	}
-
-	public void setId(UUID id) {
-		this.id = id;
+	public void setID(Integer iD) {
+		ID = iD;
 	}
 
 	public String getName() {
@@ -46,8 +45,4 @@ public class Band {
 		this.artists = artists;
 	}
 
-	@Override
-	public String toString() {
-		return "Band [id=" + id + ", name=" + name + ", artists=" + artists + "]";
-	}
 }
