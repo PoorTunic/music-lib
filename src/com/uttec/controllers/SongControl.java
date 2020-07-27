@@ -1,5 +1,6 @@
 package com.uttec.controllers;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,5 +25,29 @@ public class SongControl {
 			System.out.println("No content");
 		}
 		return songs;
+	}
+
+	public static boolean save(List<Song> songs, Integer albumID) {
+		boolean saved = false;
+		try {
+			songs.forEach(song -> {
+				String sql = "INSERT INTO song VALUES(DEFAULT, ?, ?, ?, ?, ?)";
+				try {
+					PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
+					statement.setInt(1, albumID);
+					statement.setString(2, song.getName());
+					statement.setDate(3, new java.sql.Date(song.getRelease().getTime()));
+					statement.setString(4, song.getComment());
+					statement.setString(5, "Spinnin' Records");
+					statement.execute();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
+			saved = true;
+		} catch (Exception e) {
+			saved = false;
+		}
+		return saved;
 	}
 }

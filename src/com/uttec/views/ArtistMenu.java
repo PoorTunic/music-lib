@@ -21,7 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-import com.uttec.controllers.ArtistControl;
+import com.uttec.controllers.BandControl;
 import com.uttec.entities.Artist;
 import com.uttec.entities.Band;
 
@@ -77,9 +77,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridBagLayout());
+		GridBagConstraints constraints = new GridBagConstraints();
 
 		lblName = new JLabel("Name:");
-		GridBagConstraints constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
@@ -157,7 +157,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		constraints.gridwidth = 2;
 		constraints.gridheight = 1;
 		btnRemove.addActionListener(this);
-		contentPane.add(btnRemove);
+		contentPane.add(btnRemove, constraints);
 
 		btnSave = new JButton("Save");
 		constraints.gridx = 0;
@@ -178,6 +178,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane.add(new JScrollPane(jtArtist), constraints);
 
 		pack();
+		setLocationRelativeTo(null);
 	}
 
 	/**
@@ -244,7 +245,8 @@ public class ArtistMenu extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		} else {
-			JOptionPane.showConfirmDialog(this, "Date format not correct", "Put the date as the format",
+			System.out.println(txtBorn.getText());
+			JOptionPane.showMessageDialog(this, "Write the date as the format", "Date format",
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -307,7 +309,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		if (this.artistsToSave.size() == 0) {
 			JOptionPane.showMessageDialog(this, "Add some artists to save", "Error", JOptionPane.ERROR_MESSAGE);
 		} else if (this.artistsToSave.size() == 1) {
-			if (ArtistControl.save(artistsToSave)) {
+			if (BandControl.saveSolist(artistsToSave)) {
 				this.artistsToSave = new ArrayList<Artist>();
 				this.getTableModel();
 			} else {
@@ -321,7 +323,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 				if (name != null && !name.isEmpty()) {
 					givenName = true;
 					Band newBand = new Band(name.toUpperCase(), artistsToSave);
-					if (ArtistControl.save(newBand)) {
+					if (BandControl.saveBand(newBand)) {
 						this.artistsToSave = new ArrayList<Artist>();
 						this.getTableModel();
 					} else {

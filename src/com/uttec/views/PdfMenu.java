@@ -1,6 +1,7 @@
 package com.uttec.views;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -21,7 +22,9 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 import com.uttec.controllers.AlbumControl;
 import com.uttec.controllers.ArtistControl;
@@ -50,14 +53,12 @@ public class PdfMenu extends JFrame implements ActionListener {
 
 	private List<Album> albums = new ArrayList<Album>();
 
-	private String[] jtHeaders = new String[] { "ID", "NAME", "DEPARTURE", "ACTIONS" };
+	private String[] jtHeaders = new String[] { "ID", "NAME", "DEPARTURE", "PDF" };
 
 	public String[] run() {
 		setVisible(true);
 		return this.data;
 	}
-
-	/* dejo pendiente la acción que se vaya a relizar */
 
 	/**
 	 * Launch the application.
@@ -109,7 +110,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 1;
-		contentPane.add(rdbtnArtistName);
+		contentPane.add(rdbtnArtistName, constraints);
 
 		rdbtnAlbumName = new JRadioButton("Album Name");
 		rdbtnAlbumName.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -119,7 +120,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 1;
-		contentPane.add(rdbtnAlbumName);
+		contentPane.add(rdbtnAlbumName, constraints);
 
 		rdbtnBandName = new JRadioButton("Band Name");
 		rdbtnBandName.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -129,7 +130,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 1;
-		contentPane.add(rdbtnBandName);
+		contentPane.add(rdbtnBandName, constraints);
 
 		txtArtist = new JTextField();
 		constraints.gridx = 0;
@@ -138,7 +139,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 		constraints.gridheight = 1;
 		constraints.weightx = 1.0;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		contentPane.add(txtArtist);
+		contentPane.add(txtArtist, constraints);
 		txtArtist.setColumns(10);
 
 		btnSearch = new JButton("Find");
@@ -152,7 +153,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 		constraints.weightx = 1.0;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		btnSearch.addActionListener(this);
-		contentPane.add(btnSearch);
+		contentPane.add(btnSearch, constraints);
 
 		jtAlbum = new JTable();
 		constraints.gridx = 0;
@@ -191,20 +192,65 @@ public class PdfMenu extends JFrame implements ActionListener {
 
 	private void getTableModel() {
 		String[][] data = new String[this.albums.size()][this.jtHeaders.length];
-		if (this.albums.size() == 0) {
-			data = new String[this.albums.size() + 1][this.jtHeaders.length];
-			data[0][0] = null;
-			data[0][1] = null;
-			data[0][2] = null;
-			data[0][3] = null;
-		} else {
+		if (this.albums.size() != 0) {
 			for (int i = 0; i < this.albums.size(); i++) {
 				data[i][0] = String.valueOf(this.albums.indexOf(this.albums.get(i)));
 				data[i][1] = this.albums.get(i).getName();
 				data[i][2] = this.albums.get(i).getDeparture().toString();
-				data[i][3] = "BTN";
 			}
 		}
-		this.jtAlbum.setModel(new DefaultTableModel(data, this.jtHeaders));
+		DefaultTableModel model = new DefaultTableModel(data, this.jtHeaders) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
+		this.jtAlbum.setModel(model);
+	}
+
+	class JTableButtonRenderer implements TableCellRenderer {
+		private TableCellRenderer defaultRenderer;
+
+		public JTableButtonRenderer(TableCellRenderer renderer) {
+			defaultRenderer = renderer;
+		}
+
+		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
+				int row, int column) {
+			if (value instanceof Component)
+				return (Component) value;
+			return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+		}
+	}
+
+	class JTableButtonModel extends AbstractTableModel {
+		private Object[][] rows = { { "Button1", new JButton("Button1") }, { "Button2", new JButton("Button2") },
+				{ "Button3", new JButton("Button3") }, { "Button4", new JButton("Button4") } };
+		private String[] columns = { "Count", "Buttons" };
+
+		public String getColumnName(int column) {
+			return columns[column];
+		}
+
+		public int getRowCount() {
+			return rows.length;
+		}
+
+		public int getColumnCount() {
+			return columns.length;
+		}
+
+		public Object getValueAt(int row, int column) {
+			return rows[row][column];
+		}
+
+		public boolean isCellEditable(int row, int column) {
+			return false;
+		}
+
+		public Class getColumnClass(int column) {
+			return getValueAt(0, column).getClass();
+		}
 	}
 }

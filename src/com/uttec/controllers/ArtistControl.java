@@ -13,10 +13,22 @@ import com.uttec.entities.Band;
 
 public class ArtistControl implements AlbumSearcher<Album> {
 
-	public static boolean save(List<Artist> artists) {
-		Band newSolist = new Band(artists.get(0).getArtisticName(), artists);
+	public static boolean save(List<Artist> artists, Integer bandID) {
 		try {
-			BandControl.saveBand(newSolist);
+			artists.forEach(artist -> {
+				try {
+					String artistQuery = "INSERT INTO artist VALUES(DEFAULT, ?, ? ,?, ? ,?)";
+					PreparedStatement statementArtist = DBConnection.getConnection().prepareStatement(artistQuery);
+					statementArtist.setInt(1, bandID);
+					statementArtist.setString(2, artist.getArtisticName());
+					statementArtist.setString(3, artist.getName());
+					statementArtist.setDate(4, new java.sql.Date(artist.getBorn().getTime()));
+					statementArtist.setString(5, artist.getBio());
+					statementArtist.execute();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			});
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,10 +52,10 @@ public class ArtistControl implements AlbumSearcher<Album> {
 		try {
 			String sql = "SELECT album.ID_album, album.name, album.departure FROM album INNER JOIN band ON album.ID_band=band.ID_band INNER JOIN artist ON band.ID_band=artist.ID_band WHERE artist.name LIKE ?";
 			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
-			statement.setString(1, name);
+			statement.setString(1, "%" + name + "%");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				Album album = new Album(rs.getInt(1), rs.getString(2), rs.getDate(3), "", null);
+				Album album = new Album(rs.getInt(1), rs.getString(2), rs.getDate(3), "", null, null);
 				albums.add(album);
 			}
 		} catch (Exception e) {

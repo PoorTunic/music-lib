@@ -7,18 +7,25 @@ import java.util.Map;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfImage;
-import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.uttec.enums.Content;
 
 public class Writer {
 
+	/**
+	 * PDF Writer Instance
+	 */
 	private static Writer instance;
-	private static String DEST = "results";
+	/**
+	 * Path to store PDF
+	 */
+	private static String DEST = "bin\results";
+
+	/**
+	 * PDF Content map
+	 */
 	@SuppressWarnings({ "serial", "unused" })
 	private static final Map<String, Font> FONTS = Collections.unmodifiableMap(new HashMap<String, Font>() {
 		{
@@ -26,10 +33,18 @@ public class Writer {
 		}
 	});
 
+	/**
+	 * Constructor
+	 */
 	private Writer() {
 		createPath();
 	}
 
+	/**
+	 * Return the singleton instance
+	 * 
+	 * @return Writer
+	 */
 	public static Writer getInstance() {
 		if (instance == null) {
 			instance = new Writer();
@@ -37,10 +52,16 @@ public class Writer {
 		return instance;
 	}
 
+	/**
+	 * Destroy the instance
+	 */
 	public static void close() {
 		instance = null;
 	}
 
+	/**
+	 * Create PDF folder
+	 */
 	private void createPath() {
 		java.io.File folder = new java.io.File(DEST);
 		if (!folder.exists()) {
@@ -48,6 +69,13 @@ public class Writer {
 		}
 	}
 
+	/**
+	 * Create the PDF content
+	 * 
+	 * @param filename of the document
+	 * @param pdf      body parts
+	 * @throws Exception Can't create the document
+	 */
 	public static void writePDF(String filename, Map<Content, String> pdf) throws Exception {
 		Document doc = new Document(new Rectangle(1015, 445), 40, 40, 40, 40);
 
@@ -62,10 +90,10 @@ public class Writer {
 		doc.add(new Paragraph(pdf.get(Content.TITLE)));
 		doc.add(new Paragraph(pdf.get(Content.BODY)));
 		doc.add(new Paragraph(pdf.get(Content.ARTIST)));
-		Image img = Image.getInstance(pdf.get(Content.IMG));
-		PdfImage stream = new PdfImage(img, "", null);
-		stream.put(new PdfName("ID"), new PdfName("img"));
-		
+//		Image img = Image.getInstance(pdf.get(Content.IMG));
+//		PdfImage stream = new PdfImage(img, "", null);
+//		stream.put(new PdfName("ID"), new PdfName("img"));
+
 		doc.close();
 	}
 

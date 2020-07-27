@@ -23,7 +23,9 @@ import javax.swing.table.DefaultTableModel;
 
 import com.uttec.controllers.AlbumControl;
 import com.uttec.entities.Album;
+import com.uttec.entities.Band;
 import com.uttec.entities.Song;
+import com.uttec.views.dialogs.ArtistDialog;
 
 @SuppressWarnings("serial")
 public class AlbumMenu extends JFrame implements ActionListener {
@@ -70,7 +72,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		contentPane.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
-		lblName = new JLabel("Name:");
+		lblName = new JLabel("Song Name:");
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
@@ -118,7 +120,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		contentPane.add(txtComments, constraints);
 
-		btnAddArtist = new JButton("Add");
+		btnAddArtist = new JButton("Add Song");
 		constraints.gridx = 0;
 		constraints.gridy = 3;
 		constraints.gridwidth = 2;
@@ -126,7 +128,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		btnAddArtist.addActionListener(this);
 		contentPane.add(btnAddArtist, constraints);
 
-		btnSave = new JButton("Save");
+		btnSave = new JButton("Save Album");
 		constraints.gridx = 0;
 		constraints.gridy = 7;
 		constraints.gridwidth = 2;
@@ -155,6 +157,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		contentPane.add(new JScrollPane(jtArtist), constraints);
 
 		pack();
+		setLocationRelativeTo(null);
 	}
 
 	/**
@@ -221,7 +224,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 				e.printStackTrace();
 			}
 		} else {
-			JOptionPane.showConfirmDialog(this, "Date format not correct", "Put the date as the format",
+			JOptionPane.showMessageDialog(this, "Date format not correct", "Put the date as the format",
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -282,14 +285,30 @@ public class AlbumMenu extends JFrame implements ActionListener {
 	 */
 	private void saveData() {
 		if (this.albumSongs.size() == 0) {
-			JOptionPane.showMessageDialog(this, "Add some artists to save", "Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Add some songs to save", "Error", JOptionPane.ERROR_MESSAGE);
 		} else {
 			try {
-				Album newAlbum = new Album(this.txtName.getText().trim().toUpperCase(),
-						new SimpleDateFormat().parse(this.txtRelease.getText().trim()), getName(), albumSongs);
-				AlbumControl.save(newAlbum);
-			} catch (ParseException e) {
+				Object[] result = new ArtistDialog(this).run();
+				if (result == null) {
+					JOptionPane.showMessageDialog(this, "Please, add an artist creator", "Incomplete information",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
 
+					Album newAlbum = new Album(result[2].toString(),
+							new SimpleDateFormat("YYYY-MM-DD").parse(result[3].toString()), result[1].toString(),
+							(Band) result[0], albumSongs);
+					if (AlbumControl.save(newAlbum)) {
+						JOptionPane.showMessageDialog(this, "Album created", "Success operation",
+								JOptionPane.OK_CANCEL_OPTION);
+						dispose();
+						new Inicio().setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(this, "An error has occurred", "Failed operation",
+								JOptionPane.ERROR_MESSAGE);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 
 		}

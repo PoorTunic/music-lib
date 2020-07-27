@@ -10,22 +10,25 @@ public class Album {
 	private Date departure;
 	private String genre;
 
+	private Band band;
 	private List<Song> songs;
 
-	public Album(Integer iD, String name, Date departure, String genre, List<Song> songs) {
+	public Album(Integer iD, String name, Date departure, String genre, Band band, List<Song> songs) {
 		super();
 		ID = iD;
 		this.name = name;
 		this.departure = departure;
 		this.genre = genre;
+		this.band = band;
 		this.songs = songs;
 	}
 
-	public Album(String name, Date departure, String genre, List<Song> songs) {
+	public Album(String name, Date departure, String genre, Band band, List<Song> songs) {
 		super();
 		this.name = name;
 		this.departure = departure;
 		this.genre = genre;
+		this.band = band;
 		this.songs = songs;
 	}
 
@@ -59,6 +62,14 @@ public class Album {
 
 	public void setGenre(String genre) {
 		this.genre = genre;
+	}
+
+	public Band getBand() {
+		return band;
+	}
+
+	public void setBand(Band band) {
+		this.band = band;
 	}
 
 	public List<Song> getSongs() {
