@@ -1,7 +1,6 @@
 package com.uttec.views;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -22,9 +21,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 import com.uttec.controllers.AlbumControl;
 import com.uttec.controllers.ArtistControl;
@@ -207,50 +204,5 @@ public class PdfMenu extends JFrame implements ActionListener {
 		};
 
 		this.jtAlbum.setModel(model);
-	}
-
-	class JTableButtonRenderer implements TableCellRenderer {
-		private TableCellRenderer defaultRenderer;
-
-		public JTableButtonRenderer(TableCellRenderer renderer) {
-			defaultRenderer = renderer;
-		}
-
-		public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
-				int row, int column) {
-			if (value instanceof Component)
-				return (Component) value;
-			return defaultRenderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-		}
-	}
-
-	class JTableButtonModel extends AbstractTableModel {
-		private Object[][] rows = { { "Button1", new JButton("Button1") }, { "Button2", new JButton("Button2") },
-				{ "Button3", new JButton("Button3") }, { "Button4", new JButton("Button4") } };
-		private String[] columns = { "Count", "Buttons" };
-
-		public String getColumnName(int column) {
-			return columns[column];
-		}
-
-		public int getRowCount() {
-			return rows.length;
-		}
-
-		public int getColumnCount() {
-			return columns.length;
-		}
-
-		public Object getValueAt(int row, int column) {
-			return rows[row][column];
-		}
-
-		public boolean isCellEditable(int row, int column) {
-			return false;
-		}
-
-		public Class getColumnClass(int column) {
-			return getValueAt(0, column).getClass();
-		}
 	}
 }
