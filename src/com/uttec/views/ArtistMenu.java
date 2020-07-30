@@ -1,6 +1,8 @@
 package com.uttec.views;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.uttec.controllers.BandControl;
@@ -75,11 +79,17 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 0));
+		contentPane.setBorder(new EmptyBorder(20, 20, 25, 20));
+		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 
 		lblName = new JLabel("Name:");
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblName.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
@@ -87,6 +97,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane.add(lblName, constraints);
 
 		lblArtisticName = new JLabel("Artistic Name:");
+		lblArtisticName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblArtisticName.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblArtisticName.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
@@ -94,6 +107,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane.add(lblArtisticName, constraints);
 
 		lblBio = new JLabel("Bio:");
+		lblBio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBio.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblBio.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 1;
@@ -101,6 +117,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane.add(lblBio, constraints);
 
 		lblBorn = new JLabel("Born Date(YYYY-MM-DD):");
+		lblBorn.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBorn.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblBorn.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 3;
 		constraints.gridwidth = 1;
@@ -144,6 +163,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane.add(txtBorn, constraints);
 
 		btnAddArtist = new JButton("Add");
+		btnAddArtist.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnAddArtist.setBackground(new Color(50, 205, 50));
+		btnAddArtist.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 4;
 		constraints.gridwidth = 2;
@@ -152,6 +174,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane.add(btnAddArtist, constraints);
 
 		btnRemove = new JButton("Remove");
+		btnRemove.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnRemove.setBackground(new Color(204,11,0));
+		btnRemove.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridwidth = 2;
@@ -160,6 +185,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		contentPane.add(btnRemove, constraints);
 
 		btnSave = new JButton("Save");
+		btnSave.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnSave.setBackground(new Color(50, 205, 50));
+		btnSave.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 8;
 		constraints.gridwidth = 2;

@@ -65,6 +65,8 @@ public class ArtistDialog extends JDialog implements ActionListener {
 
 		contentPane = new JPanel();
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
 		contentPane.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
 

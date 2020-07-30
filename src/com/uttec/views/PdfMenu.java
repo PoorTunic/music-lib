@@ -33,11 +33,8 @@ import com.uttec.entities.Album;
 public class PdfMenu extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-
 	private JLabel lblTitle;
-
 	private JButton btnSearch;
-
 	private JTextField txtArtist;
 
 	private JRadioButton rdbtnArtistName;
@@ -83,7 +80,8 @@ public class PdfMenu extends JFrame implements ActionListener {
 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 0));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBorder(new EmptyBorder(20, 20, 25, 20));
+		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
@@ -130,6 +128,8 @@ public class PdfMenu extends JFrame implements ActionListener {
 		contentPane.add(rdbtnBandName, constraints);
 
 		txtArtist = new JTextField();
+		txtArtist.setBorder(new EmptyBorder(5, 5, 5, 5));
+		txtArtist.setBounds(80, 167, 124, 40);
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 3;
@@ -137,7 +137,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 		constraints.weightx = 1.0;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		contentPane.add(txtArtist, constraints);
-		txtArtist.setColumns(10);
+		txtArtist.setColumns(45);
 
 		btnSearch = new JButton("Find");
 		btnSearch.setFont(new Font("Segoe UI", Font.BOLD, 12));

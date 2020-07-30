@@ -1,6 +1,9 @@
 package com.uttec.views;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -19,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.uttec.controllers.AlbumControl;
@@ -66,13 +71,22 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		setTitle("Album Register");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		
 
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 0, 0));
+		contentPane.setBorder(new EmptyBorder(20, 20, 25, 20));
+		contentPane.setLayout(null);
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
+		
 
 		lblName = new JLabel("Song Name:");
+		lblName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblName.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblName.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.gridwidth = 1;
@@ -80,13 +94,20 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		contentPane.add(lblName, constraints);
 
 		lblDeparture = new JLabel("Release (YYYY-MM-DD):");
+		lblDeparture.setHorizontalAlignment(SwingConstants.CENTER);
+		lblDeparture.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblDeparture.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 1;
 		contentPane.add(lblDeparture, constraints);
 
-		lblBio = new JLabel("Comments:");
+
+		lblBio = new JLabel("Song Name:");
+		lblBio.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBio.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblBio.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 1;
@@ -121,6 +142,9 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		contentPane.add(txtComments, constraints);
 
 		btnAddArtist = new JButton("Add Song");
+		btnAddArtist.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnAddArtist.setBackground(new Color(50, 205, 50));
+		btnAddArtist.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 3;
 		constraints.gridwidth = 2;
@@ -129,6 +153,9 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		contentPane.add(btnAddArtist, constraints);
 
 		btnSave = new JButton("Save Album");
+		btnSave.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnSave.setBackground(new Color(50, 205, 50));
+		btnSave.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 7;
 		constraints.gridwidth = 2;
@@ -139,6 +166,9 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		contentPane.add(btnSave, constraints);
 
 		btnRemove = new JButton("Remove");
+		btnRemove.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnRemove.setBackground(new Color(50, 205, 50));
+		btnRemove.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 4;
 		constraints.gridwidth = 2;

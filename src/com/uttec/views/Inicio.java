@@ -61,6 +61,7 @@ public class Inicio extends JFrame implements ActionListener {
 		setForeground(Color.ORANGE);
 		setTitle("Music - Library Application");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setResizable(false);
 		setBounds(100, 100, 570, 307);
 		setLocationRelativeTo(null);
 
@@ -103,6 +104,8 @@ public class Inicio extends JFrame implements ActionListener {
 		contentPane.add(btnArtist);
 
 		mnuBar = new JMenuBar();
+		mnuBar.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		mnuBar.setBackground(new Color(255, 255, 255));
 		setJMenuBar(mnuBar);
 
 		mnuAlbum = new JMenu("Album");
