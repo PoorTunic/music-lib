@@ -50,4 +50,23 @@ public class SongControl {
 		}
 		return saved;
 	}
+
+	public static List<Song> getAlbumSongsByID(Integer albumID) {
+		List<Song> songs = new ArrayList<Song>();
+		try {
+
+			String sql = "SELECT son.ID_song, son.name, son.release, son.comment, son.publisher FROM song son WHERE son.ID_album=?";
+			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
+			statement.setInt(1, albumID);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				Song albumSong = new Song(rs.getInt(1), rs.getString(2), rs.getDate(3), rs.getString(4));
+				songs.add(albumSong);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			songs = null;
+		}
+		return songs;
+	}
 }

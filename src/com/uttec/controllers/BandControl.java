@@ -81,4 +81,19 @@ public class BandControl implements AlbumSearcher<Album> {
 		}
 		return bands;
 	}
+
+	public static Band findByID(int bandID) {
+		try {
+			String sql = "SELECT ban.name FROM band ban WHERE ban.ID_band=?";
+			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
+			statement.setInt(1, bandID);
+			ResultSet rs = statement.executeQuery();
+			while (rs.next()) {
+				return new Band(bandID, rs.getString(1), null);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

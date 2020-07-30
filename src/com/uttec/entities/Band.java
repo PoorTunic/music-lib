@@ -45,4 +45,8 @@ public class Band {
 		this.artists = artists;
 	}
 
+	@Override
+	public String toString() {
+		return "Band [ID=" + ID + ", name=" + name + ", artists=" + artists + "]";
+	}
 }

@@ -13,6 +13,11 @@ public class Album {
 	private Band band;
 	private List<Song> songs;
 
+	public Album(Integer iD) {
+		super();
+		ID = iD;
+	}
+
 	public Album(Integer iD, String name, Date departure, String genre, Band band, List<Song> songs) {
 		super();
 		ID = iD;
@@ -82,7 +87,7 @@ public class Album {
 
 	@Override
 	public String toString() {
-		return "Album [ID=" + ID + ", name=" + name + ", departure=" + departure + ", genre=" + genre + ", songs="
-				+ songs + "]";
+		return "Album [ID=" + ID + ", name=" + name + ", departure=" + departure + ", genre=" + genre + ", band=" + band
+				+ ", songs=" + songs + "]";
 	}
 }

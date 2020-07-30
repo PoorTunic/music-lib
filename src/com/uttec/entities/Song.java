@@ -56,4 +56,8 @@ public class Song {
 		this.comment = comment;
 	}
 
+	@Override
+	public String toString() {
+		return "Song [ID=" + ID + ", name=" + name + ", release=" + release + ", comment=" + comment + "]";
+	}
 }

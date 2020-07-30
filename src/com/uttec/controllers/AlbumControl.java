@@ -8,6 +8,8 @@ import java.util.List;
 import com.uttec.controllers.interfaces.AlbumSearcher;
 import com.uttec.database.DBConnection;
 import com.uttec.entities.Album;
+import com.uttec.entities.Band;
+import com.uttec.entities.Song;
 
 public class AlbumControl implements AlbumSearcher<Album> {
 
@@ -54,6 +56,31 @@ public class AlbumControl implements AlbumSearcher<Album> {
 			e.printStackTrace();
 		}
 		return albums;
+	}
+
+	public static Album fetchInfo(Album fetchedAlbum) {
+		try {
+			int bandID = -1;
+			String sql = "SELECT alb.ID_album, alb.ID_band, alb.name, alb.departure, alb.comment, gen.name FROM album alb INNER JOIN genre gen ON alb.id_genre = gen.id_genre WHERE ID_album=?";
+			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
+			statement.setInt(1, fetchedAlbum.getID());
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				bandID = rs.getInt(2);
+				fetchedAlbum.setName(rs.getString(3));
+				fetchedAlbum.setDeparture(rs.getDate(4));
+				fetchedAlbum.setGenre(rs.getString(6));
+			}
+			Band albumBand = BandControl.findByID(bandID);
+			fetchedAlbum.setBand(albumBand);
+			List<Song> albumSongs = SongControl.getAlbumSongsByID(fetchedAlbum.getID());
+			fetchedAlbum.setSongs(albumSongs);
+			return fetchedAlbum;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }

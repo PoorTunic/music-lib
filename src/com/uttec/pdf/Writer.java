@@ -10,6 +10,7 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.uttec.entities.Album;
 import com.uttec.enums.Content;
 
 public class Writer {
@@ -21,7 +22,7 @@ public class Writer {
 	/**
 	 * Path to store PDF
 	 */
-	private static String DEST = "bin\results";
+	private static String DEST = "results";
 
 	/**
 	 * PDF Content map
@@ -76,7 +77,7 @@ public class Writer {
 	 * @param pdf      body parts
 	 * @throws Exception Can't create the document
 	 */
-	public static void writePDF(String filename, Map<Content, String> pdf) throws Exception {
+	public void writePDF(String filename, Map<Content, String> pdf) throws Exception {
 		Document doc = new Document(new Rectangle(1015, 445), 40, 40, 40, 40);
 
 		PdfWriter.getInstance(doc, new FileOutputStream(DEST + "/" + filename + ".pdf"));
@@ -90,11 +91,30 @@ public class Writer {
 		doc.add(new Paragraph(pdf.get(Content.TITLE)));
 		doc.add(new Paragraph(pdf.get(Content.BODY)));
 		doc.add(new Paragraph(pdf.get(Content.ARTIST)));
-//		Image img = Image.getInstance(pdf.get(Content.IMG));
-//		PdfImage stream = new PdfImage(img, "", null);
-//		stream.put(new PdfName("ID"), new PdfName("img"));
 
 		doc.close();
+	}
+
+	public boolean createPDF(Album fetchedAlbum) {
+		boolean created = false;
+		String filename = fetchedAlbum.getName();
+		String strSongs = "";
+		for (int i = 0; i < fetchedAlbum.getSongs().size(); i++) {
+			strSongs += (i + 1) + ".- " + fetchedAlbum.getSongs().get(i).getName() + "\n";
+		}
+
+		Map<Content, String> pdf = new HashMap<Content, String>();
+		pdf.put(Content.TITLE, fetchedAlbum.getName());
+		pdf.put(Content.BODY, strSongs);
+		pdf.put(Content.ARTIST, fetchedAlbum.getBand().getName());
+
+		try {
+			writePDF(filename, pdf);
+			created = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return created;
 	}
 
 }
