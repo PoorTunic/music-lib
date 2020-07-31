@@ -42,23 +42,23 @@ public class ArtistMenu extends JFrame implements ActionListener {
 	/**
 	 * Represents GUI components
 	 */
-	JPanel contentPane;
-	JLabel lblName;
-	JLabel lblArtisticName;
-	JLabel lblBio;
-	JLabel lblBorn;
+	private JPanel contentPane;
+	private JLabel lblName;
+	private JLabel lblArtisticName;
+	private JLabel lblBio;
+	private JLabel lblBorn;
 
-	JTextField txtName;
-	JTextField txtArtisticName;
-	JTextField txtBio;
-	JTextField txtBorn;
+	private JTextField txtName;
+	private JTextField txtArtisticName;
+	private JTextField txtBio;
+	private JTextField txtBorn;
 
-	JTable jtArtist;
+	private JTable jtArtist;
 
-	JButton btnAddArtist;
-	JButton btnRemoveArtist;
-	JButton btnSave;
-	JButton btnRemove;
+	private JButton btnAddArtist;
+	private JButton btnSave;
+	private JButton btnRemove;
+	private JButton btnBack;
 
 	/**
 	 * Represents table data
@@ -175,7 +175,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 
 		btnRemove = new JButton("Remove");
 		btnRemove.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnRemove.setBackground(new Color(204,11,0));
+		btnRemove.setBackground(new Color(204, 11, 0));
 		btnRemove.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 5;
@@ -196,6 +196,19 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		btnSave.addActionListener(this);
 		contentPane.add(btnSave, constraints);
+		
+		btnBack = new JButton("Menu");
+		btnBack.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnBack.setBackground(new Color(50, 205, 50));
+		btnBack.setForeground(new Color(255, 255, 255));
+		constraints.gridx = 0;
+		constraints.gridy = 9;
+		constraints.gridwidth = 2;
+		constraints.gridheight = 1;
+		constraints.weightx = 1.0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		btnBack.addActionListener(this);
+		contentPane.add(btnBack, constraints);
 
 		jtArtist = new JTable();
 		constraints.gridx = 0;
@@ -240,6 +253,11 @@ public class ArtistMenu extends JFrame implements ActionListener {
 					}
 				}
 			}
+		} else if (e.getSource().equals(this.btnBack)) {
+			Inicio inicio = new Inicio();
+			inicio.setVisible(true);
+
+			this.dispose();
 		}
 	}
 

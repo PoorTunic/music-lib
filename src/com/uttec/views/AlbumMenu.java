@@ -1,6 +1,5 @@
 package com.uttec.views;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -38,21 +37,21 @@ public class AlbumMenu extends JFrame implements ActionListener {
 	/**
 	 * GUI components
 	 */
-	JPanel contentPane;
-	JLabel lblName;
-	JLabel lblDeparture;
-	JLabel lblBio;
+	private JPanel contentPane;
+	private JLabel lblName;
+	private JLabel lblDeparture;
+	private JLabel lblBio;
 
-	JTextField txtName;
-	JTextField txtRelease;
-	JTextField txtComments;
+	private JTextField txtName;
+	private JTextField txtRelease;
+	private JTextField txtComments;
 
-	JTable jtArtist;
+	private JTable jtSong;
 
-	JButton btnAddArtist;
-	JButton btnRemoveArtist;
-	JButton btnSave;
-	JButton btnRemove;
+	private JButton btnAddSong;
+	private JButton btnSave;
+	private JButton btnRemove;
+	private JButton btnBack;
 
 	/**
 	 * Represents table data
@@ -71,8 +70,6 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		setTitle("Album Register");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(0, 0, 0));
@@ -81,7 +78,6 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(new GridBagLayout());
 		GridBagConstraints constraints = new GridBagConstraints();
-		
 
 		lblName = new JLabel("Song Name:");
 		lblName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -102,7 +98,6 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		constraints.gridwidth = 1;
 		constraints.gridheight = 1;
 		contentPane.add(lblDeparture, constraints);
-
 
 		lblBio = new JLabel("Song Name:");
 		lblBio.setHorizontalAlignment(SwingConstants.CENTER);
@@ -141,16 +136,16 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		contentPane.add(txtComments, constraints);
 
-		btnAddArtist = new JButton("Add Song");
-		btnAddArtist.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnAddArtist.setBackground(new Color(50, 205, 50));
-		btnAddArtist.setForeground(new Color(255, 255, 255));
+		btnAddSong = new JButton("Add Song");
+		btnAddSong.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnAddSong.setBackground(new Color(50, 205, 50));
+		btnAddSong.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 3;
 		constraints.gridwidth = 2;
 		constraints.gridheight = 1;
-		btnAddArtist.addActionListener(this);
-		contentPane.add(btnAddArtist, constraints);
+		btnAddSong.addActionListener(this);
+		contentPane.add(btnAddSong, constraints);
 
 		btnSave = new JButton("Save Album");
 		btnSave.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -167,7 +162,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 
 		btnRemove = new JButton("Remove");
 		btnRemove.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnRemove.setBackground(new Color(50, 205, 50));
+		btnRemove.setBackground(new Color(204, 11, 0));
 		btnRemove.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 4;
@@ -178,13 +173,26 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		btnRemove.addActionListener(this);
 		contentPane.add(btnRemove, constraints);
 
-		jtArtist = new JTable();
+		btnBack = new JButton("Menu");
+		btnBack.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnBack.setBackground(new Color(50, 205, 50));
+		btnBack.setForeground(new Color(255, 255, 255));
+		constraints.gridx = 0;
+		constraints.gridy = 8;
+		constraints.gridwidth = 2;
+		constraints.gridheight = 1;
+		constraints.weightx = 1.0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		btnBack.addActionListener(this);
+		contentPane.add(btnBack, constraints);
+
+		jtSong = new JTable();
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridwidth = 2;
 		constraints.gridheight = 2;
 		this.getTableModel();
-		contentPane.add(new JScrollPane(jtArtist), constraints);
+		contentPane.add(new JScrollPane(jtSong), constraints);
 
 		pack();
 		setLocationRelativeTo(null);
@@ -197,7 +205,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(this.btnAddArtist)) {
+		if (e.getSource().equals(this.btnAddSong)) {
 			if (this.emptyFields()) {
 				JOptionPane.showMessageDialog(this, "Empty fields", "Complete all the fields",
 						JOptionPane.WARNING_MESSAGE);
@@ -221,6 +229,11 @@ public class AlbumMenu extends JFrame implements ActionListener {
 					}
 				}
 			}
+		} else if (e.getSource().equals(this.btnBack)) {
+			Inicio inicio = new Inicio();
+			inicio.setVisible(true);
+
+			this.dispose();
 		}
 	}
 
@@ -306,7 +319,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 				data[i][3] = this.albumSongs.get(i).getComment();
 			}
 		}
-		this.jtArtist.setModel(new DefaultTableModel(data, this.jtHeaders));
+		this.jtSong.setModel(new DefaultTableModel(data, this.jtHeaders));
 	}
 
 	/**

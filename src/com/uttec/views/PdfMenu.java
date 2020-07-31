@@ -35,12 +35,13 @@ import com.uttec.pdf.Writer;
 public class PdfMenu extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JLabel lblTitle;
 
+	private JLabel lblTitle;
 	private JLabel lblGenerate;
 
 	private JButton btnSearch;
 	private JButton btnGeneratePDF;
+	private JButton btnBack;
 
 	private JTextField txtArtist;
 	private JTextField txtAlbumID;
@@ -105,6 +106,9 @@ public class PdfMenu extends JFrame implements ActionListener {
 		contentPane.add(lblTitle, constraints);
 
 		lblGenerate = new JLabel("Insert Album ID to Generate PDF");
+		lblGenerate.setHorizontalAlignment(SwingConstants.CENTER);
+		lblGenerate.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblGenerate.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 6;
 		constraints.gridwidth = 3;
@@ -191,6 +195,19 @@ public class PdfMenu extends JFrame implements ActionListener {
 		btnGeneratePDF.addActionListener(this);
 		contentPane.add(btnGeneratePDF, constraints);
 
+		btnBack = new JButton("Menu");
+		btnBack.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnBack.setBackground(new Color(50, 205, 50));
+		btnBack.setForeground(new Color(255, 255, 255));
+		constraints.gridx = 1;
+		constraints.gridy = 9;
+		constraints.gridwidth = 1;
+		constraints.gridheight = 1;
+		constraints.weightx = 1.0;
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		btnBack.addActionListener(this);
+		contentPane.add(btnBack, constraints);
+
 		jtAlbum = new JTable();
 		constraints.gridx = 0;
 		constraints.gridy = 4;
@@ -205,6 +222,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 		btnGrp.add(rdbtnBandName);
 
 		pack();
+		setLocationRelativeTo(null);
 	}
 
 	@Override
@@ -244,6 +262,11 @@ public class PdfMenu extends JFrame implements ActionListener {
 				JOptionPane.showMessageDialog(this, "ID can't be a String", "Value error", JOptionPane.ERROR_MESSAGE);
 			}
 			this.txtAlbumID.setText(null);
+		} else if (e.getSource().equals(this.btnBack)) {
+			Inicio inicio = new Inicio();
+			inicio.setVisible(true);
+
+			this.dispose();
 		}
 	}
 
