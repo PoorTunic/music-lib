@@ -14,6 +14,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
@@ -31,9 +34,19 @@ import com.uttec.controllers.SearcherContext;
 import com.uttec.entities.Album;
 import com.uttec.pdf.Writer;
 
+/**
+ * Represents the GUI to Generate Cover Disc PDF
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ * @version 1.0
+ */
 @SuppressWarnings("serial")
 public class PdfMenu extends JFrame implements ActionListener {
 
+	/**
+	 * Represents GUI Components
+	 */
 	private JPanel contentPane;
 
 	private JLabel lblTitle;
@@ -49,6 +62,11 @@ public class PdfMenu extends JFrame implements ActionListener {
 	private JRadioButton rdbtnArtistName;
 	private JRadioButton rdbtnAlbumName;
 	private JRadioButton rdbtnBandName;
+
+	private JMenuBar mnuBar;
+	private JMenu mnuAction;
+	private JMenuItem mniEdit;
+	private JMenuItem mniDelete;
 
 	private JTable jtAlbum;
 
@@ -216,15 +234,36 @@ public class PdfMenu extends JFrame implements ActionListener {
 		this.getTableModel();
 		contentPane.add(new JScrollPane(jtAlbum), constraints);
 
-		ButtonGroup btnGrp = new ButtonGroup();
-		btnGrp.add(rdbtnAlbumName);
-		btnGrp.add(rdbtnArtistName);
-		btnGrp.add(rdbtnBandName);
+		ButtonGroup grpFinder = new ButtonGroup();
+		grpFinder.add(rdbtnAlbumName);
+		grpFinder.add(rdbtnArtistName);
+		grpFinder.add(rdbtnBandName);
+
+		mnuBar = new JMenuBar();
+		mnuAction = new JMenu("Actions");
+
+		mniEdit = new JMenuItem("Edit");
+		mniEdit.addActionListener(this);
+
+		mniDelete = new JMenuItem("Delete");
+		mniDelete.addActionListener(this);
+
+		mnuAction.add(mniEdit);
+		mnuAction.add(mniDelete);
+
+		mnuBar.add(mnuAction);
+
+		this.setJMenuBar(mnuBar);
 
 		pack();
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Handles Performed Action Events
+	 * 
+	 * @see ActionListener
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.btnSearch)) {
@@ -253,6 +292,7 @@ public class PdfMenu extends JFrame implements ActionListener {
 					if ((boolean) result[0]) {
 						JOptionPane.showMessageDialog(this, "Cover Created, go to result folder", "Cover generated",
 								JOptionPane.INFORMATION_MESSAGE);
+						reload();
 					} else {
 						JOptionPane.showMessageDialog(this, String.valueOf(result[1]), "Error",
 								JOptionPane.ERROR_MESSAGE);
@@ -267,9 +307,34 @@ public class PdfMenu extends JFrame implements ActionListener {
 			inicio.setVisible(true);
 
 			this.dispose();
+		} else if (e.getSource().equals(this.mniEdit)) {
+			System.out.println("Edit");
+		} else if (e.getSource().equals(this.mniDelete)) {
+			try {
+				int albumID = Integer.parseInt(JOptionPane.showInputDialog(this, "Insert the album ID", "Delete Album",
+						JOptionPane.PLAIN_MESSAGE));
+				if (AlbumControl.deleteAlbumById(albumID)) {
+					JOptionPane.showMessageDialog(this, "The Album has been deleted", "OK",
+							JOptionPane.INFORMATION_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(this, "An error has occurred, try later", "Error",
+							JOptionPane.INFORMATION_MESSAGE);
+				}
+			} catch (Exception ex) {
+				JOptionPane.showMessageDialog(this, "Please, ID must be a Number", "Incorrect format",
+						JOptionPane.ERROR_MESSAGE);
+			}
 		}
 	}
 
+	private void reload() {
+		this.btnSearch.doClick();
+	}
+
+	/**
+	 * Loads the initial data (empty) or updates the content according to List
+	 * elements
+	 */
 	private void getTableModel() {
 		String[][] data = new String[this.albums.size()][this.jtHeaders.length];
 		if (this.albums.size() != 0) {
@@ -289,6 +354,12 @@ public class PdfMenu extends JFrame implements ActionListener {
 		this.jtAlbum.setModel(model);
 	}
 
+	/**
+	 * Creates the PDF fetching album data and calling PDF Writer
+	 * 
+	 * @return Object Array [boolean, String], First Argument check if the process
+	 *         is correct, Second Argument is the process message
+	 */
 	private Object[] generatePDF() {
 		try {
 			Album fetchedAlbum = new Album(Integer.parseInt(this.txtAlbumID.getText().trim()));

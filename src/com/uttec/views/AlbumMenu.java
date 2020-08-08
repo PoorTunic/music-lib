@@ -31,6 +31,13 @@ import com.uttec.entities.Band;
 import com.uttec.entities.Song;
 import com.uttec.views.dialogs.ArtistDialog;
 
+/**
+ * Represents the GUI to Register a New Album
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ * @version 1.0
+ */
 @SuppressWarnings("serial")
 public class AlbumMenu extends JFrame implements ActionListener {
 
@@ -40,7 +47,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JLabel lblName;
 	private JLabel lblDeparture;
-	private JLabel lblBio;
+	private JLabel lblComment;
 
 	private JTextField txtName;
 	private JTextField txtRelease;
@@ -99,15 +106,15 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		constraints.gridheight = 1;
 		contentPane.add(lblDeparture, constraints);
 
-		lblBio = new JLabel("Song Name:");
-		lblBio.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBio.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		lblBio.setForeground(new Color(255, 255, 255));
+		lblComment = new JLabel("Comments:");
+		lblComment.setHorizontalAlignment(SwingConstants.CENTER);
+		lblComment.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		lblComment.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 2;
 		constraints.gridwidth = 1;
 		constraints.gridheight = 1;
-		contentPane.add(lblBio, constraints);
+		contentPane.add(lblComment, constraints);
 
 		txtName = new JTextField();
 		constraints.gridx = 1;

@@ -30,6 +30,7 @@ import com.uttec.entities.Artist;
 import com.uttec.entities.Band;
 
 /**
+ * Represents the GUI to Register a New Artist or Band
  * 
  * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
  *         Osorio Osorio
@@ -196,7 +197,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		btnSave.addActionListener(this);
 		contentPane.add(btnSave, constraints);
-		
+
 		btnBack = new JButton("Menu");
 		btnBack.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnBack.setBackground(new Color(50, 205, 50));

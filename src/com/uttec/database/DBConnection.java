@@ -25,7 +25,7 @@ public class DBConnection {
 	private static String URL = "jdbc:postgresql:/";
 	private static String DRIVER = "org.postgresql.Driver";
 	private static String USER = "postgres";
-	private static String PASSWORD = "Master1057$$"; /*Cambio de password por mi usuario*/
+	private static String PASSWORD = "Master1057$$"; /* Cambio de password por mi usuario */
 
 	/**
 	 * Constructor that loads the DB Driver and authentication
@@ -61,7 +61,9 @@ public class DBConnection {
 		}
 	}
 
-//  Testing DB connection method
+	/*
+	 * Testing DB connection method
+	 */
 //	public static void main(String[] arguments) {
 //		try {
 //			ResultSet resultSet = DBConnection.getConnection().prepareStatement("SELECT * FROM genre").executeQuery();

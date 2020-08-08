@@ -11,8 +11,22 @@ import com.uttec.entities.Album;
 import com.uttec.entities.Artist;
 import com.uttec.entities.Band;
 
+/**
+ * Represents Artist Database Actions
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ * @version 1.0
+ */
 public class ArtistControl implements AlbumSearcher<Album> {
 
+	/**
+	 * Saves a List of Artists belonging to a Band
+	 * 
+	 * @param artists to Save
+	 * @param bandID  of artists belonging
+	 * @return boolean check if the process is correct
+	 */
 	public static boolean save(List<Artist> artists, Integer bandID) {
 		try {
 			artists.forEach(artist -> {
@@ -36,6 +50,13 @@ public class ArtistControl implements AlbumSearcher<Album> {
 		}
 	}
 
+	/**
+	 * Saves a Band calling BandControl
+	 * 
+	 * @param newBand to Save
+	 * @return boolean check if the process is correct
+	 * @see BandControl#saveBand(Band)
+	 */
 	public static boolean save(Band newBand) {
 		try {
 			BandControl.saveBand(newBand);
@@ -46,6 +67,12 @@ public class ArtistControl implements AlbumSearcher<Album> {
 		}
 	}
 
+	/**
+	 * Represents strategy pattern to find a List of Albums by provided Artist Name
+	 * 
+	 * @return List<Ablum> by provided name
+	 * @see List
+	 */
 	@Override
 	public List<Album> findByName(String name) {
 		List<Album> albums = new ArrayList<Album>();

@@ -11,8 +11,21 @@ import com.uttec.entities.Album;
 import com.uttec.entities.Band;
 import com.uttec.entities.Song;
 
+/**
+ * Represents Album Database Actions
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ * @version 1.0
+ */
 public class AlbumControl implements AlbumSearcher<Album> {
 
+	/**
+	 * Saves provided album
+	 * 
+	 * @param album to save
+	 * @return boolean if the process is correct
+	 */
 	public static boolean save(Album album) {
 		try {
 			String sql = "INSERT INTO album VALUES (DEFAULT, ?, ?, ?, ?, ?)";
@@ -36,10 +49,17 @@ public class AlbumControl implements AlbumSearcher<Album> {
 			}
 			return SongControl.save(album.getSongs(), album.getID());
 		} catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
 
+	/**
+	 * Represents strategy pattern to find a List of Albums by provided Album Name
+	 * 
+	 * @return List<Ablum> by provided name
+	 * @see List
+	 */
 	@Override
 	public List<Album> findByName(String name) {
 		List<Album> albums = new ArrayList<Album>();
@@ -58,6 +78,12 @@ public class AlbumControl implements AlbumSearcher<Album> {
 		return albums;
 	}
 
+	/**
+	 * Fetches album information by provided Album class whit ID
+	 * 
+	 * @param fetchedAlbum whit ID
+	 * @return Album information
+	 */
 	public static Album fetchInfo(Album fetchedAlbum) {
 		try {
 			int bandID = -1;
@@ -81,6 +107,23 @@ public class AlbumControl implements AlbumSearcher<Album> {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	public static boolean deleteAlbumById(int albumID) {
+		try {
+			String sql = "DELETE FROM album WHERE album.ID_album=?";
+			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
+			statement.setInt(1, albumID);
+			int affectedRows = statement.executeUpdate();
+			if (affectedRows == 0) {
+				return false;
+			}
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+
 	}
 
 }

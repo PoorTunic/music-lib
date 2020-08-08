@@ -18,7 +18,7 @@ CREATE TABLE artist(
     name VARCHAR(30),
     debut DATE,
     bio VARCHAR(500),
-    FOREIGN KEY (ID_band) REFERENCES band(ID_band)
+    FOREIGN KEY (ID_band) REFERENCES band(ID_band) ON DELETE CASCADE
 );
 
 CREATE TABLE album(
@@ -28,7 +28,7 @@ CREATE TABLE album(
     departure DATE,
     comment VARCHAR(50),
     ID_genre INTEGER,
-    FOREIGN KEY (ID_band) REFERENCES band(ID_band),
+    FOREIGN KEY (ID_band) REFERENCES band(ID_band) ON DELETE CASCADE,
     FOREIGN KEY (ID_genre) REFERENCES genre(ID_genre)
 );
 
@@ -39,7 +39,7 @@ CREATE TABLE song(
     release DATE,
     comment VARCHAR(50),
     publisher VARCHAR(50),
-    FOREIGN KEY (ID_album) REFERENCES  album(ID_album)
+    FOREIGN KEY (ID_album) REFERENCES  album(ID_album) ON DELETE CASCADE
 );
 
 INSERT INTO genre VALUES(DEFAULT, 'ROCK');
