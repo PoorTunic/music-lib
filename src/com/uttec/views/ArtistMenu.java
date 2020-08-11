@@ -60,7 +60,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 	private JButton btnSave;
 	private JButton btnRemove;
 	private JButton btnBack;
-	
+
 	private JButton btnEdit;
 
 	/**
@@ -186,7 +186,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		constraints.gridheight = 1;
 		btnRemove.addActionListener(this);
 		contentPane.add(btnRemove, constraints);
-		
+
 		// edit
 		btnEdit = new JButton("Edit");
 		btnEdit.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -194,7 +194,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		btnEdit.setForeground(new Color(255, 255, 255));
 		constraints.gridx = 0;
 		constraints.gridy = 10;
-	    constraints.gridwidth = 7;
+		constraints.gridwidth = 7;
 		constraints.gridheight = 1;
 		constraints.weightx = 1.0;
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -275,35 +275,40 @@ public class ArtistMenu extends JFrame implements ActionListener {
 			inicio.setVisible(true);
 
 			this.dispose();
-			
-			
-		} else if(e.getSource().equals(this.btnEdit)) {
+
+		} else if (e.getSource().equals(this.btnEdit)) {
 			if (this.artistsToSave.size() == 0) {
 				JOptionPane.showMessageDialog(this, "Add elements first", "Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
 				try {
-					int edit = Integer.parseInt((JOptionPane.showInputDialog(this, "Type the position to Edit:", "Edit item", 
-							JOptionPane.INFORMATION_MESSAGE)));
+					int edit = Integer.parseInt((JOptionPane.showInputDialog(this, "Type the position to Edit:",
+							"Edit item", JOptionPane.INFORMATION_MESSAGE)));
 					if (btnEdit.getText().equals("Edit") && edit != -1) {
-						
+
 						this.txtName.setText(artistsToSave.get(edit).getName());
 						this.txtArtisticName.setText(artistsToSave.get(edit).getArtisticName());
 						this.txtBio.setText(artistsToSave.get(edit).getBio());
-						//this.txtBorn.setText("2019-09-09");
-						this.txtBorn.setText(String.valueOf(artistsToSave.get(edit).getBorn()));
-						btnEdit.setText("Confirmar");
-					} else if (btnEdit.getText().equals("Confirmar")) {
-						try {
-							artistsToSave.get(edit).setName(txtName.getText().trim().toUpperCase());
-							artistsToSave.get(edit).setArtisticName(txtArtisticName.getText().trim());
-							artistsToSave.get(edit).setBio(txtBio.getText().trim());
-							artistsToSave.get(edit).setBorn(
-									new SimpleDateFormat("yyyy-MM-dd").parse(this.txtBorn.getText().trim()));
-							clearForm();
-							btnEdit.setText("Edit");
-							this.getTableModel();
-						} catch (Exception e2) {
-							JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
+						this.txtBorn
+								.setText(new SimpleDateFormat("yyyy-MM-dd").format(artistsToSave.get(edit).getBorn()));
+						btnEdit.setText("Confirm");
+					} else if (btnEdit.getText().equals("Confirm")) {
+						if (emptyFields()) {
+							JOptionPane.showMessageDialog(this, "Fill all fields", "Empty fields",
+									JOptionPane.ERROR_MESSAGE);
+						} else {
+							try {
+								artistsToSave.get(edit).setName(txtName.getText().trim().toUpperCase());
+								artistsToSave.get(edit).setArtisticName(txtArtisticName.getText().trim());
+								artistsToSave.get(edit).setBio(txtBio.getText().trim());
+								artistsToSave.get(edit).setBorn(
+										new SimpleDateFormat("yyyy-MM-dd").parse(this.txtBorn.getText().trim()));
+								clearForm();
+								btnEdit.setText("Edit");
+								this.getTableModel();
+							} catch (Exception e2) {
+								JOptionPane.showMessageDialog(this, "Index not found", "Error",
+										JOptionPane.ERROR_MESSAGE);
+							}
 						}
 					}
 				} catch (Exception e2) {
@@ -311,7 +316,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 				}
 
 			}
-			
+
 		}
 	}
 
