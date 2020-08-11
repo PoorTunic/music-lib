@@ -69,7 +69,7 @@ public class AlbumControl implements AlbumSearcher<Album> {
 			statement.setString(1, '%' + name + '%');
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				Album album = new Album(rs.getInt(1), rs.getString(2), rs.getDate(3), "", null, null);
+				Album album = new Album(rs.getInt(1), rs.getString(2), rs.getDate(3), 0, null, null);
 				albums.add(album);
 			}
 		} catch (Exception e) {
@@ -87,7 +87,7 @@ public class AlbumControl implements AlbumSearcher<Album> {
 	public static Album fetchInfo(Album fetchedAlbum) {
 		try {
 			int bandID = -1;
-			String sql = "SELECT alb.ID_album, alb.ID_band, alb.name, alb.departure, alb.comment, gen.name FROM album alb INNER JOIN genre gen ON alb.id_genre = gen.id_genre WHERE ID_album=?";
+			String sql = "SELECT alb.ID_album, alb.ID_band, alb.name, alb.departure, alb.comment, gen.ID_genre FROM album alb INNER JOIN genre gen ON alb.id_genre = gen.id_genre WHERE ID_album=?";
 			PreparedStatement statement = DBConnection.getConnection().prepareStatement(sql);
 			statement.setInt(1, fetchedAlbum.getID());
 			ResultSet rs = statement.executeQuery();
@@ -96,7 +96,7 @@ public class AlbumControl implements AlbumSearcher<Album> {
 				bandID = rs.getInt(2);
 				fetchedAlbum.setName(rs.getString(3));
 				fetchedAlbum.setDeparture(rs.getDate(4));
-				fetchedAlbum.setGenre(rs.getString(6));
+				fetchedAlbum.setGenreID(rs.getInt(6));
 			}
 			Band albumBand = BandControl.findByID(bandID);
 			fetchedAlbum.setBand(albumBand);

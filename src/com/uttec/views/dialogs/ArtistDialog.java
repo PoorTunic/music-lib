@@ -18,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.uttec.controllers.BandControl;
+import com.uttec.controllers.GenreControl;
 import com.uttec.entities.Band;
 
 @SuppressWarnings("serial")
@@ -47,21 +48,6 @@ public class ArtistDialog extends JDialog implements ActionListener {
 	List<Band> artists = new ArrayList<Band>();
 	Object[] data;
 	Band selectedBand = null;
-	String[] genres = { "ACAPELLA", "ACID", "ACID JAZZ", "ACID PUNK", "ACOUSTIC", "ALTERNROCK", "ALTERNATIVE",
-			"AMBIENT", "AVANTGARDE", "BALLAD", "BASS", "BEBOB", "BIG BAND", "BLUEGRASS", "BLUES", "BOOTY BASS",
-			"CABARET", "CELTIC", "CHAMBER MUSIC", "CHANSON", "CHORUS", "CHRISTIAN RAP", "CLASSIC ROCK", "CLASSICAL",
-			"CLUB", "COMEDY", "COUNTRY", "CULT", "DANCE", "DANCE HALL", "DARKWAVE", "DEATH METAL", "DISCO", "DREAM",
-			"DRUM SOLO", "DUET", "EASY LISTENING", "ELECTRONIC", "ETHNIC", "EURO-HOUSE", "EURO-TECHNO", "EURODANCE",
-			"FAST FUSION", "FOLK", "FOLK-ROCK", "FOLKLORE", "FREESTYLE", "FUNK", "FUSION", "GAME", "GANGSTA", "GOSPEL",
-			"GOTHIC", "GOTHIC ROCK", "GRUNGE", "HARD ROCK", "HIP-HOP", "HOUSE", "HUMOUR", "INDUSTRIAL", "INSTRUMENTAL",
-			"INSTRUMENTAL POP", "INSTRUMENTAL ROCK", "JAZZ", "JAZZ+FUNK", "JUNGLE", "LATIN", "LO-FI", "MEDITATIVE",
-			"METAL", "MUSICAL", "NATIONAL FOLK", "NATIVE AMERICAN", "NEW AGE", "NEW WAVE", "NOISE", "OLDIES", "OPERA",
-			"OTHER", "POLKA", "POP", "POP-FOLK", "POP/FUNK", "PORN GROOVE", "POWER BALLAD", "PRANKS", "PRIMUS",
-			"PROGRESSIVE ROCK", "PSYCHADELIC", "PSYCHEDELIC ROCK", "PUNK", "PUNK ROCK", "R&B", "RAP", "RAVE", "REGGAE",
-			"RETRO", "REVIVAL", "RHYTHMIC SOUL", "ROCK", "ROCK & ROLL", "SAMBA", "SATIRE", "SHOWTUNES", "SKA",
-			"SLOW JAM", "SLOW ROCK", "SONATA", "SOUL", "SOUND CLIP", "SOUNDTRACK", "SOUTHERN ROCK", "SPACE", "SPEECH",
-			"SWING", "SYMPHONIC ROCK", "SYMPHONY", "TANGO", "TECHNO", "TECHNO-INDUSTRIAL", "TOP 40", "TRAILER",
-			"TRANCE", "TRIBAL", "TRIP-HOP", "VOCAL" };
 
 	public ArtistDialog(JFrame parent) {
 		super(parent, "Album owner", true);
@@ -167,7 +153,12 @@ public class ArtistDialog extends JDialog implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		contentPane.add(cbxArtists, constraints);
 
-		cbxGenres = new JComboBox<String>(genres);
+		try {
+			cbxGenres = new JComboBox<String>(GenreControl.getGenres());
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Can't fetch genre data");
+			dispose();
+		}
 		constraints.gridx = 0;
 		constraints.gridy = 5;
 		constraints.gridwidth = 2;
@@ -195,7 +186,7 @@ public class ArtistDialog extends JDialog implements ActionListener {
 			} else if (validateFields()) {
 				data = new Object[5];
 				data[0] = artists.get(cbxArtists.getSelectedIndex());
-				data[1] = cbxGenres.getSelectedItem();
+				data[1] = cbxGenres.getSelectedIndex();
 				data[2] = txtAlbumName.getText().trim().toUpperCase();
 				data[3] = txtDeparture.getText().trim().toUpperCase();
 				dispose();

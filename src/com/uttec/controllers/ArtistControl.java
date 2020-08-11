@@ -82,7 +82,7 @@ public class ArtistControl implements AlbumSearcher<Album> {
 			statement.setString(1, "%" + name + "%");
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				Album album = new Album(rs.getInt(1), rs.getString(2), rs.getDate(3), "", null, null);
+				Album album = new Album(rs.getInt(1), rs.getString(2), rs.getDate(3), 0, null, null);
 				albums.add(album);
 			}
 		} catch (Exception e) {

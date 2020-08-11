@@ -8,7 +8,7 @@ public class Album {
 	private Integer ID;
 	private String name;
 	private Date departure;
-	private String genre;
+	private Integer genreID;
 
 	private Band band;
 	private List<Song> songs;
@@ -18,21 +18,21 @@ public class Album {
 		ID = iD;
 	}
 
-	public Album(Integer iD, String name, Date departure, String genre, Band band, List<Song> songs) {
+	public Album(Integer iD, String name, Date departure, Integer genreID, Band band, List<Song> songs) {
 		super();
 		ID = iD;
 		this.name = name;
 		this.departure = departure;
-		this.genre = genre;
+		this.genreID = genreID;
 		this.band = band;
 		this.songs = songs;
 	}
 
-	public Album(String name, Date departure, String genre, Band band, List<Song> songs) {
+	public Album(String name, Date departure, Integer genreID, Band band, List<Song> songs) {
 		super();
 		this.name = name;
 		this.departure = departure;
-		this.genre = genre;
+		this.genreID = genreID;
 		this.band = band;
 		this.songs = songs;
 	}
@@ -61,12 +61,12 @@ public class Album {
 		this.departure = departure;
 	}
 
-	public String getGenre() {
-		return genre;
+	public Integer getGenreID() {
+		return genreID;
 	}
 
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setGenreID(Integer genreID) {
+		this.genreID = genreID;
 	}
 
 	public Band getBand() {
@@ -87,7 +87,7 @@ public class Album {
 
 	@Override
 	public String toString() {
-		return "Album [ID=" + ID + ", name=" + name + ", departure=" + departure + ", genre=" + genre + ", band=" + band
-				+ ", songs=" + songs + "]";
+		return "Album [ID=" + ID + ", name=" + name + ", departure=" + departure + ", genreID=" + genreID + ", band="
+				+ band + ", songs=" + songs + "]";
 	}
 }

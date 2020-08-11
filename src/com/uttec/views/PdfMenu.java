@@ -267,18 +267,23 @@ public class PdfMenu extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(this.btnSearch)) {
-			if (rdbtnBandName.isSelected()) {
-				SearcherContext ctx = new SearcherContext(new BandControl());
-				this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
-				this.getTableModel();
-			} else if (rdbtnArtistName.isSelected()) {
-				SearcherContext ctx = new SearcherContext(new ArtistControl());
-				this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
-				this.getTableModel();
-			} else if (rdbtnAlbumName.isSelected()) {
-				SearcherContext ctx = new SearcherContext(new AlbumControl());
-				this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
-				this.getTableModel();
+			if (this.txtArtist.getText().trim().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please, fill the field", "Empty query",
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				if (rdbtnBandName.isSelected()) {
+					SearcherContext ctx = new SearcherContext(new BandControl());
+					this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
+					this.getTableModel();
+				} else if (rdbtnArtistName.isSelected()) {
+					SearcherContext ctx = new SearcherContext(new ArtistControl());
+					this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
+					this.getTableModel();
+				} else if (rdbtnAlbumName.isSelected()) {
+					SearcherContext ctx = new SearcherContext(new AlbumControl());
+					this.albums = ctx.search(this.txtArtist.getText().trim().toUpperCase());
+					this.getTableModel();
+				}
 			}
 		} else if (e.getSource().equals(this.btnGeneratePDF)) {
 			try {

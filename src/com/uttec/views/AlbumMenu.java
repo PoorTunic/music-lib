@@ -31,8 +31,6 @@ import com.uttec.entities.Band;
 import com.uttec.entities.Song;
 import com.uttec.views.dialogs.ArtistDialog;
 
-import sun.invoke.empty.Empty;
-
 /**
  * Represents the GUI to Register a New Album
  * 
@@ -61,7 +59,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 	private JButton btnSave;
 	private JButton btnRemove;
 	private JButton btnBack;
-	
+
 	private JButton btnEdit;
 
 	/**
@@ -183,8 +181,8 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		btnRemove.addActionListener(this);
 		contentPane.add(btnRemove, constraints);
-		
-		//edit
+
+		// edit
 		btnEdit = new JButton("Edit");
 		btnEdit.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnEdit.setBackground(new Color(22, 111, 245));
@@ -197,7 +195,6 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		btnEdit.addActionListener(this);
 		contentPane.add(btnEdit, constraints);
-		
 
 		btnBack = new JButton("Menu");
 		btnBack.setFont(new Font("Segoe UI", Font.BOLD, 12));
@@ -260,51 +257,52 @@ public class AlbumMenu extends JFrame implements ActionListener {
 			inicio.setVisible(true);
 
 			this.dispose();
-			
+
 			// edit
-		} else if(e.getSource().equals(this.btnEdit)){
-			if(this.albumSongs.size() == 0) {
+		} else if (e.getSource().equals(this.btnEdit)) {
+			if (this.albumSongs.size() == 0) {
 				JOptionPane.showMessageDialog(this, "Add elements first", "Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
-				
-					try {
-						int edit = Integer.parseInt((JOptionPane.showInputDialog(this, "Type the position to Edit:", "Edit item",JOptionPane.INFORMATION_MESSAGE)));
 
-						if( btnEdit.getText().equals("Edit") && edit != -1)  {
-							
-							
-							this.txtName.setText(albumSongs.get(edit).getName());
-							this.txtRelease.setText("2019-09-09");
-							this.txtComments.setText(albumSongs.get(edit).getComment());
-							
-							btnEdit.setText("Confirmar");
-							
-						} else if(btnEdit.getText().equals("Confirmar")) {
-							
-							try {
-									
-								albumSongs.get(edit).setName(txtName.getText().trim().toUpperCase());
-								albumSongs.get(edit).setRelease(new SimpleDateFormat("yyyy-MM-dd").parse(this.txtRelease.getText().trim()));
-								albumSongs.get(edit).setComment(txtComments.getText().trim());
-								clearForm();
-								
-								btnEdit.setText("Edit");
-								this.getTableModel();
-								
-							} catch (Exception e2) {
-								JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
-							}
-			
+				try {
+					int edit = Integer.parseInt((JOptionPane.showInputDialog(this, "Type the position to Edit:",
+							"Edit item", JOptionPane.INFORMATION_MESSAGE)));
+
+					if (btnEdit.getText().equals("Edit") && edit != -1) {
+
+						this.txtName.setText(albumSongs.get(edit).getName());
+						this.txtRelease.setText("2019-09-09");
+						this.txtComments.setText(albumSongs.get(edit).getComment());
+
+						btnEdit.setText("Confirmar");
+
+					} else if (btnEdit.getText().equals("Confirmar")) {
+
+						try {
+
+							albumSongs.get(edit).setName(txtName.getText().trim().toUpperCase());
+							albumSongs.get(edit).setRelease(
+									new SimpleDateFormat("yyyy-MM-dd").parse(this.txtRelease.getText().trim()));
+							albumSongs.get(edit).setComment(txtComments.getText().trim());
+							clearForm();
+
+							btnEdit.setText("Edit");
+							this.getTableModel();
+
+						} catch (Exception e2) {
+							JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-						
-					} catch (Exception e2) {
-						JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
+
 					}
 
+				} catch (Exception e2) {
+					JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+
 			}
-				
+
 		}
-		
+
 	}
 
 	/**
@@ -408,11 +406,11 @@ public class AlbumMenu extends JFrame implements ActionListener {
 				} else {
 
 					Album newAlbum = new Album(result[2].toString(),
-							new SimpleDateFormat("YYYY-MM-DD").parse(result[3].toString()), result[1].toString(),
+							new SimpleDateFormat("YYYY-MM-DD").parse(result[3].toString()), (int) result[1],
 							(Band) result[0], albumSongs);
 					if (AlbumControl.save(newAlbum)) {
 						JOptionPane.showMessageDialog(this, "Album created", "Success operation",
-								JOptionPane.OK_CANCEL_OPTION);
+								JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 						new Inicio().setVisible(true);
 					} else {
