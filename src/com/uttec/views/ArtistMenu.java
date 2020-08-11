@@ -276,9 +276,12 @@ public class ArtistMenu extends JFrame implements ActionListener {
 
 			this.dispose();
 
+			//Edit
 		} else if (e.getSource().equals(this.btnEdit)) {
+			editForm();
 			if (this.artistsToSave.size() == 0) {
 				JOptionPane.showMessageDialog(this, "Add elements first", "Warning", JOptionPane.WARNING_MESSAGE);
+				editFormbtn();
 			} else {
 				try {
 					int edit = Integer.parseInt((JOptionPane.showInputDialog(this, "Type the position to Edit:",
@@ -304,6 +307,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 										new SimpleDateFormat("yyyy-MM-dd").parse(this.txtBorn.getText().trim()));
 								clearForm();
 								btnEdit.setText("Edit");
+								editFormbtn();
 								this.getTableModel();
 							} catch (Exception e2) {
 								JOptionPane.showMessageDialog(this, "Index not found", "Error",
@@ -381,6 +385,29 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		this.txtArtisticName.setText(null);
 		this.txtBio.setText(null);
 		this.txtBorn.setText(null);
+	}
+	
+	/**
+	 * btn edit false
+	 */
+	
+	private void editForm() {
+		this.btnAddArtist.setEnabled(false);
+		this.btnBack.setEnabled(false);
+		this.btnRemove.setEnabled(false);
+		this.btnSave.setEnabled(false);
+	}
+	
+	/**
+	 * btn edit true
+	 */
+	
+	private void editFormbtn() {
+		this.btnAddArtist.setEnabled(true);
+		this.btnBack.setEnabled(true);
+		this.btnRemove.setEnabled(true);
+		this.btnSave.setEnabled(true);
+		
 	}
 
 	/**

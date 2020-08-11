@@ -260,8 +260,10 @@ public class AlbumMenu extends JFrame implements ActionListener {
 
 			// edit
 		} else if (e.getSource().equals(this.btnEdit)) {
+			editForm();
 			if (this.albumSongs.size() == 0) {
 				JOptionPane.showMessageDialog(this, "Add elements first", "Warning", JOptionPane.WARNING_MESSAGE);
+				editFormbtn();
 			} else {
 				try {
 					int edit = Integer.parseInt((JOptionPane.showInputDialog(this, "Type the position to Edit:",
@@ -269,7 +271,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 					if (btnEdit.getText().equals("Edit") && edit != -1) {
 						this.txtName.setText(albumSongs.get(edit).getName());
 						//this.txtRelease.setText("2019-09-09");
-						this.txtRelease.setText(String.valueOf(albumSongs.get(edit).getRelease()));
+						this.txtRelease.setText(new SimpleDateFormat("yyyy-MM-dd").format(albumSongs.get(edit).getRelease()));
 						this.txtComments.setText(albumSongs.get(edit).getComment());
 						btnEdit.setText("Confirmar");
 					} else if (btnEdit.getText().equals("Confirmar")) {
@@ -280,6 +282,7 @@ public class AlbumMenu extends JFrame implements ActionListener {
 							albumSongs.get(edit).setComment(txtComments.getText().trim());
 							clearForm();
 							btnEdit.setText("Edit");
+							editFormbtn();
 							this.getTableModel();
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
@@ -354,6 +357,29 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		this.txtRelease.setText(null);
 		this.txtComments.setText(null);
 		this.txtRelease.setText(null);
+	}
+	
+	/**
+	 * btn edit false
+	 */
+	
+	private void editForm() {
+		this.btnAddSong.setEnabled(false);
+		this.btnBack.setEnabled(false);
+		this.btnRemove.setEnabled(false);
+		this.btnSave.setEnabled(false);
+	}
+	
+	/**
+	 * btn edit true
+	 */
+	
+	private void editFormbtn() {
+		this.btnAddSong.setEnabled(true);
+		this.btnBack.setEnabled(true);
+		this.btnRemove.setEnabled(true);
+		this.btnSave.setEnabled(true);
+		
 	}
 
 	/**
