@@ -263,42 +263,31 @@ public class AlbumMenu extends JFrame implements ActionListener {
 			if (this.albumSongs.size() == 0) {
 				JOptionPane.showMessageDialog(this, "Add elements first", "Warning", JOptionPane.WARNING_MESSAGE);
 			} else {
-
 				try {
 					int edit = Integer.parseInt((JOptionPane.showInputDialog(this, "Type the position to Edit:",
 							"Edit item", JOptionPane.INFORMATION_MESSAGE)));
-
 					if (btnEdit.getText().equals("Edit") && edit != -1) {
-
 						this.txtName.setText(albumSongs.get(edit).getName());
-						this.txtRelease.setText("2019-09-09");
+						//this.txtRelease.setText("2019-09-09");
+						this.txtRelease.setText(String.valueOf(albumSongs.get(edit).getRelease()));
 						this.txtComments.setText(albumSongs.get(edit).getComment());
-
 						btnEdit.setText("Confirmar");
-
 					} else if (btnEdit.getText().equals("Confirmar")) {
-
 						try {
-
 							albumSongs.get(edit).setName(txtName.getText().trim().toUpperCase());
 							albumSongs.get(edit).setRelease(
 									new SimpleDateFormat("yyyy-MM-dd").parse(this.txtRelease.getText().trim()));
 							albumSongs.get(edit).setComment(txtComments.getText().trim());
 							clearForm();
-
 							btnEdit.setText("Edit");
 							this.getTableModel();
-
 						} catch (Exception e2) {
 							JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
 						}
-
 					}
-
 				} catch (Exception e2) {
 					JOptionPane.showMessageDialog(this, "Index not found", "Error", JOptionPane.ERROR_MESSAGE);
 				}
-
 			}
 
 		}
