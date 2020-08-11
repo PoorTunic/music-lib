@@ -2,6 +2,12 @@ package com.uttec.entities;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ *
+ */
 public class Song {
 
 	private Integer ID;

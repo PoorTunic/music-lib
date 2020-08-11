@@ -82,7 +82,9 @@ public class PdfMenu extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Launch the application.
+	 * Launches the application
+	 * 
+	 * @param args JVM args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

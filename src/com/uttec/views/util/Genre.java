@@ -2,6 +2,10 @@ package com.uttec.views.util;
 
 public class Genre {
 
+	/**
+	 * Used for fast implementation, can be removed
+	 * 
+	 */
 	public static String[] GENRES = { "ACAPELLA", "ACID", "ACID JAZZ", "ACID PUNK", "ACOUSTIC", "ALTERNROCK",
 			"ALTERNATIVE", "AMBIENT", "AVANTGARDE", "BALLAD", "BASS", "BEBOB", "BIG BAND", "BLUEGRASS", "BLUES",
 			"BOOTY BASS", "CABARET", "CELTIC", "CHAMBER MUSIC", "CHANSON", "CHORUS", "CHRISTIAN RAP", "CLASSIC ROCK",

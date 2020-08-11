@@ -8,8 +8,20 @@ import java.util.List;
 import com.uttec.database.DBConnection;
 import com.uttec.entities.Song;
 
+/**
+ * Represents Song table actions on Database
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ *
+ */
 public class SongControl {
 
+	/**
+	 * Fetches all Songs stored on the DB
+	 * 
+	 * @return all the Songs on Database
+	 */
 	public static List<Song> getAll() {
 		List<Song> songs = new ArrayList<Song>();
 
@@ -27,6 +39,13 @@ public class SongControl {
 		return songs;
 	}
 
+	/**
+	 * Persistes provided Song list and Album ID reference
+	 * 
+	 * @param songs   of the album
+	 * @param albumID of the album
+	 * @return if the action can be completed
+	 */
 	public static boolean save(List<Song> songs, Integer albumID) {
 		boolean saved = false;
 		try {
@@ -51,6 +70,12 @@ public class SongControl {
 		return saved;
 	}
 
+	/**
+	 * Fetches a Song list by provided Album ID
+	 * 
+	 * @param albumID of the album
+	 * @return List of songs
+	 */
 	public static List<Song> getAlbumSongsByID(Integer albumID) {
 		List<Song> songs = new ArrayList<Song>();
 		try {

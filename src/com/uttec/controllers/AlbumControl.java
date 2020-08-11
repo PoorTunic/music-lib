@@ -57,7 +57,7 @@ public class AlbumControl implements AlbumSearcher<Album> {
 	/**
 	 * Represents strategy pattern to find a List of Albums by provided Album Name
 	 * 
-	 * @return List<Ablum> by provided name
+	 * @return List of Albums by provided name
 	 * @see List
 	 */
 	@Override
@@ -109,6 +109,12 @@ public class AlbumControl implements AlbumSearcher<Album> {
 		}
 	}
 
+	/**
+	 * Delete an Album on Database by provided ID
+	 * 
+	 * @param albumID of the wished album to delete
+	 * @return if the action can be completed
+	 */
 	public static boolean deleteAlbumById(int albumID) {
 		try {
 			String sql = "DELETE FROM album WHERE album.ID_album=?";

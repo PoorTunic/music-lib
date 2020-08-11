@@ -69,7 +69,7 @@ public class BandControl implements AlbumSearcher<Album> {
 	/**
 	 * Represents strategy pattern to find a List of Albums by provided Band Name
 	 * 
-	 * @return List<Ablum> by provided name
+	 * @return List of Albums by provided name
 	 * @see List
 	 */
 	@Override
@@ -94,7 +94,7 @@ public class BandControl implements AlbumSearcher<Album> {
 	 * Fetches a List of Bands
 	 * 
 	 * @param qry is a part of the String
-	 * @return List<Band>
+	 * @return List of Bands or Solists
 	 */
 	public static List<Band> findByBand(String qry) {
 		List<Band> bands = new ArrayList<Band>();

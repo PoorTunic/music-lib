@@ -276,7 +276,7 @@ public class ArtistMenu extends JFrame implements ActionListener {
 
 			this.dispose();
 
-			//Edit
+			// Edit
 		} else if (e.getSource().equals(this.btnEdit)) {
 			editForm();
 			if (this.artistsToSave.size() == 0) {
@@ -386,28 +386,28 @@ public class ArtistMenu extends JFrame implements ActionListener {
 		this.txtBio.setText(null);
 		this.txtBorn.setText(null);
 	}
-	
+
 	/**
 	 * btn edit false
 	 */
-	
+
 	private void editForm() {
 		this.btnAddArtist.setEnabled(false);
 		this.btnBack.setEnabled(false);
 		this.btnRemove.setEnabled(false);
 		this.btnSave.setEnabled(false);
 	}
-	
+
 	/**
 	 * btn edit true
 	 */
-	
+
 	private void editFormbtn() {
 		this.btnAddArtist.setEnabled(true);
 		this.btnBack.setEnabled(true);
 		this.btnRemove.setEnabled(true);
 		this.btnSave.setEnabled(true);
-		
+
 	}
 
 	/**
@@ -471,7 +471,9 @@ public class ArtistMenu extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Launch the application.
+	 * Launches the application
+	 * 
+	 * @param args JVM args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

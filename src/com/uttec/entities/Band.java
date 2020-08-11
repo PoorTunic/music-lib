@@ -2,6 +2,12 @@ package com.uttec.entities;
 
 import java.util.List;
 
+/**
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ *
+ */
 public class Band {
 
 	private Integer ID;

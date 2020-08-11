@@ -22,7 +22,7 @@ public class SearcherContext {
 	/**
 	 * Constructor with provided context to search in DB
 	 * 
-	 * @param context
+	 * @param context Provided context applied to search Albums
 	 */
 	public SearcherContext(AlbumSearcher<Album> context) {
 		this.context = context;
@@ -32,7 +32,7 @@ public class SearcherContext {
 	 * Depending on the given context, this will apply the method findByName
 	 * 
 	 * @param name to find
-	 * @return List<Album>
+	 * @return List of Albums
 	 */
 	public List<Album> search(String name) {
 		return context.findByName(name);

@@ -13,6 +13,13 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.uttec.entities.Album;
 import com.uttec.enums.Content;
 
+/**
+ * Represents the PDF Writer to create PDF files
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ *
+ */
 public class Writer {
 
 	/**

@@ -70,7 +70,7 @@ public class ArtistControl implements AlbumSearcher<Album> {
 	/**
 	 * Represents strategy pattern to find a List of Albums by provided Artist Name
 	 * 
-	 * @return List<Ablum> by provided name
+	 * @return List of Albums by provided name
 	 * @see List
 	 */
 	@Override

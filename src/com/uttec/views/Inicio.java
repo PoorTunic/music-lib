@@ -9,9 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -28,18 +25,10 @@ public class Inicio extends JFrame implements ActionListener {
 	private JButton btnAlbum;
 	private JButton btnArtist;
 
-	private JMenuBar mnuBar;
-
-	private JMenu mnuBand;
-	private JMenu mnuAlbum;
-
-	private JMenuItem mniEditBand;
-	private JMenuItem mniDeleteBand;
-	private JMenuItem mniEditAlbum;
-	private JMenuItem mniDeleteAlbum;
-
 	/**
-	 * Launch the application.
+	 * Launches the application
+	 * 
+	 * @param args JVM args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -103,31 +92,6 @@ public class Inicio extends JFrame implements ActionListener {
 		btnArtist.addActionListener(this);
 		contentPane.add(btnArtist);
 
-		mnuBar = new JMenuBar();
-		mnuBar.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		mnuBar.setBackground(new Color(255, 255, 255));
-		setJMenuBar(mnuBar);
-
-		mnuAlbum = new JMenu("Album");
-		mnuBar.add(mnuAlbum);
-
-		mniEditAlbum = new JMenuItem("Edit albums");
-		mniDeleteAlbum = new JMenuItem("Delete albums");
-		mniEditAlbum.addActionListener(this);
-		mniDeleteAlbum.addActionListener(this);
-		mnuAlbum.add(mniEditAlbum);
-		mnuAlbum.add(mniDeleteAlbum);
-
-		mnuBand = new JMenu("Artists");
-		mnuBar.add(mnuBand);
-
-		mniEditBand = new JMenuItem("Edit artists");
-		mniDeleteBand = new JMenuItem("Delete artists");
-		mniEditBand.addActionListener(this);
-		mniDeleteBand.addActionListener(this);
-		mnuBand.add(mniEditBand);
-		mnuBand.add(mniDeleteBand);
-
 	}
 
 	/**
@@ -149,14 +113,6 @@ public class Inicio extends JFrame implements ActionListener {
 			AlbumMenu albumMenu = new AlbumMenu();
 			albumMenu.setVisible(true);
 			dispose();
-		} else if (e.getSource().equals(mniEditAlbum)) {
-			System.out.println("Go to edit album");
-		} else if (e.getSource().equals(mniEditBand)) {
-			System.out.println("Go to edit artist");
-		} else if (e.getSource().equals(mniDeleteAlbum)) {
-			System.out.println("Go to delete album");
-		} else if (e.getSource().equals(mniDeleteBand)) {
-			System.out.println("Go to delete artists");
 		}
 	}
 }

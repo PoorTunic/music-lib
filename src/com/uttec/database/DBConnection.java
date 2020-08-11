@@ -25,12 +25,14 @@ public class DBConnection {
 	private static String URL = "jdbc:postgresql:/";
 	private static String DRIVER = "org.postgresql.Driver";
 	private static String USER = "postgres";
-	private static String PASSWORD = "Master1057$$"; /* Cambio de password por mi usuario */
+	private static String PASSWORD = ""; /* Cambiar por su propia PWD */
 
 	/**
 	 * Constructor that loads the DB Driver and authentication
 	 * 
-	 * @throws Exception ClassNotFound, SQLException
+	 * @throws Exception ClassNotFound, SQLException Thrown when the DB Driver isn't
+	 *                   found or it can't connect to DB, verify Project path and
+	 *                   {@link #USER} / {@link #PASSWORD} values
 	 */
 	private DBConnection() throws Exception {
 		Class.forName(DRIVER);
@@ -41,7 +43,9 @@ public class DBConnection {
 	 * Gets the connection, if it is not created, it will create a new instance
 	 * 
 	 * @return java.sql.Connection
-	 * @throws Exception SQLException
+	 * @throws Exception SQLException Thrown when the DB Driver isn't found or it
+	 *                   can't connect to DB, verify Project path and {@link #USER}
+	 *                   / {@link #PASSWORD} values
 	 */
 	public static Connection getConnection() throws Exception {
 		if (connection == null) {
@@ -53,7 +57,7 @@ public class DBConnection {
 	/**
 	 * Closes the connection
 	 * 
-	 * @throws SQLException
+	 * @throws SQLException Thrown when SQLConnection can't be closed
 	 */
 	public static void close() throws SQLException {
 		if (connection != null) {

@@ -171,6 +171,10 @@ public class ArtistDialog extends JDialog implements ActionListener {
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Handles Action Performed events
+	 * 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(btnFind)) {
@@ -199,11 +203,20 @@ public class ArtistDialog extends JDialog implements ActionListener {
 		}
 	}
 
+	/**
+	 * Main method, when it is called, it makes the view visible, when
+	 * {@link JDialog#dispose()} is called, returns all input values or null
+	 * 
+	 * @return Input data fields values or null
+	 */
 	public Object[] run() {
 		setVisible(true);
 		return data;
 	}
 
+	/**
+	 * Fetches genre Combobox
+	 */
 	private void fetch() {
 		DefaultComboBoxModel<String> model = new DefaultComboBoxModel<String>();
 		artists = BandControl.findByBand(txtBand.getText().trim().toUpperCase());
@@ -216,6 +229,11 @@ public class ArtistDialog extends JDialog implements ActionListener {
 		txtBand.setText(null);
 	}
 
+	/**
+	 * Validates TextField content
+	 * 
+	 * @return If the fields are completed or not
+	 */
 	private boolean validateFields() {
 		if (txtAlbumName.getText().trim().isEmpty() || txtAlbumName.getText().trim().equals("")
 				|| txtDeparture.getText().trim().isEmpty() || txtDeparture.getText().trim().equals(""))

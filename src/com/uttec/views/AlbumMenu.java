@@ -270,8 +270,9 @@ public class AlbumMenu extends JFrame implements ActionListener {
 							"Edit item", JOptionPane.INFORMATION_MESSAGE)));
 					if (btnEdit.getText().equals("Edit") && edit != -1) {
 						this.txtName.setText(albumSongs.get(edit).getName());
-						//this.txtRelease.setText("2019-09-09");
-						this.txtRelease.setText(new SimpleDateFormat("yyyy-MM-dd").format(albumSongs.get(edit).getRelease()));
+						// this.txtRelease.setText("2019-09-09");
+						this.txtRelease
+								.setText(new SimpleDateFormat("yyyy-MM-dd").format(albumSongs.get(edit).getRelease()));
 						this.txtComments.setText(albumSongs.get(edit).getComment());
 						btnEdit.setText("Confirmar");
 					} else if (btnEdit.getText().equals("Confirmar")) {
@@ -358,28 +359,28 @@ public class AlbumMenu extends JFrame implements ActionListener {
 		this.txtComments.setText(null);
 		this.txtRelease.setText(null);
 	}
-	
+
 	/**
 	 * btn edit false
 	 */
-	
+
 	private void editForm() {
 		this.btnAddSong.setEnabled(false);
 		this.btnBack.setEnabled(false);
 		this.btnRemove.setEnabled(false);
 		this.btnSave.setEnabled(false);
 	}
-	
+
 	/**
 	 * btn edit true
 	 */
-	
+
 	private void editFormbtn() {
 		this.btnAddSong.setEnabled(true);
 		this.btnBack.setEnabled(true);
 		this.btnRemove.setEnabled(true);
 		this.btnSave.setEnabled(true);
-		
+
 	}
 
 	/**
@@ -441,7 +442,9 @@ public class AlbumMenu extends JFrame implements ActionListener {
 	}
 
 	/**
-	 * Launch the application.
+	 * Launches the application
+	 * 
+	 * @param args JVM args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

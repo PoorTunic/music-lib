@@ -7,8 +7,21 @@ import java.util.List;
 
 import com.uttec.database.DBConnection;
 
+/**
+ * Represents Genre table actions on DB
+ * 
+ * @author Daniel Clemente Aguirre, Daniela Hernández Hernández, Juan Alberto
+ *         Osorio Osorio
+ *
+ */
 public class GenreControl {
 
+	/**
+	 * Fetches an Array of all genres stored on database
+	 * 
+	 * @return String array of genres
+	 * @throws Exception if the DB connection can't be stablished
+	 */
 	public static String[] getGenres() throws Exception {
 		List<String> genres = new ArrayList<String>();
 

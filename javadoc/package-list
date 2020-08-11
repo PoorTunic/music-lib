@@ -1,0 +1,10 @@
+com.uttec
+com.uttec.controllers
+com.uttec.controllers.interfaces
+com.uttec.database
+com.uttec.entities
+com.uttec.enums
+com.uttec.pdf
+com.uttec.views
+com.uttec.views.dialogs
+com.uttec.views.util
