@@ -81,4 +81,4 @@ local.properties
 .worksheet
 
 # Generated PDF
-result/
+results/
